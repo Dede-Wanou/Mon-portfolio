@@ -3,29 +3,823 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEDE-WANOU Mahunakpon Daniel - Portfolio BTS SIO SISR</title>
-    <meta name="description" content="Portfolio de DEDE-WANOU Mahunakpon Daniel, étudiant en BTS SIO option SISR, Administrateur Système et Réseau.">
+    <title>Daniel DEDE-WANOU — Administrateur Système et Réseau</title>
+    <meta name="description" content="Portfolio de Daniel DEDE-WANOU, étudiant en BTS SIO SISR et futur Administrateur Système et Réseau.">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%238B5CF6'/%3E%3Cstop offset='1' stop-color='%2306B6D4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='43' font-size='32' font-family='Arial' font-weight='800' text-anchor='middle' fill='white'%3ED%3C/text%3E%3C/svg%3E">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Conservez exactement tout votre CSS ici, tel qu'il était dans votre fichier d'origine */
-        @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
-        :root {
-            --bg-main: #060914; --bg-card: rgba(17, 24, 39, 0.55); --bg-card-hover: rgba(30, 41, 59, 0.7);
-            --bg-solid: #0E1424; --a1: #8B5CF6; --a2: #3B82F6; --a3: #06B6D4; --a4: #EC4899; --a5: #F59E0B;
-            --a6: #10B981; --grad: linear-gradient(120deg, #8B5CF6, #3B82F6 40%, #06B6D4 75%, #10B981);
-            --text-main: #F1F5F9; --text-muted: #94A3B8; --border-color: rgba(255, 255, 255, 0.08);
-            --border-highlight: rgba(255, 255, 255, 0.18); --shadow-glow: 0 20px 50px -15px rgba(139, 92, 246, 0.45);
-            --modal-bg: rgba(3, 6, 15, 0.8); --header-bg: rgba(6, 9, 20, 0.72); --blob-op: 0.5;
-            --grid-line: rgba(255, 255, 255, 0.035); --term-bg: #0A0F1C;
+        @property --angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
         }
-        /* ... (Veuillez insérer le reste de vos styles CSS originaux ici) ... */
+
+        :root {
+            --bg-main: #060914;
+            --bg-card: rgba(17, 24, 39, 0.55);
+            --bg-card-hover: rgba(30, 41, 59, 0.7);
+            --bg-solid: #0E1424;
+            --a1: #8B5CF6;
+            --a2: #3B82F6;
+            --a3: #06B6D4;
+            --a4: #EC4899;
+            --a5: #F59E0B;
+            --a6: #10B981;
+            --grad: linear-gradient(120deg, #8B5CF6, #3B82F6 40%, #06B6D4 75%, #10B981);
+            --text-main: #F1F5F9;
+            --text-muted: #94A3B8;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(255, 255, 255, 0.18);
+            --shadow-glow: 0 20px 50px -15px rgba(139, 92, 246, 0.45);
+            --modal-bg: rgba(3, 6, 15, 0.8);
+            --header-bg: rgba(6, 9, 20, 0.72);
+            --blob-op: 0.5;
+            --grid-line: rgba(255, 255, 255, 0.035);
+            --term-bg: #0A0F1C;
+        }
+
+        [data-theme="light"] {
+            --bg-main: #F4F6FF;
+            --bg-card: rgba(255, 255, 255, 0.72);
+            --bg-card-hover: rgba(255, 255, 255, 0.95);
+            --bg-solid: #FFFFFF;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --border-color: rgba(15, 23, 42, 0.09);
+            --border-highlight: rgba(15, 23, 42, 0.18);
+            --shadow-glow: 0 20px 50px -18px rgba(99, 102, 241, 0.4);
+            --modal-bg: rgba(240, 243, 255, 0.82);
+            --header-bg: rgba(244, 246, 255, 0.78);
+            --blob-op: 0.35;
+            --grid-line: rgba(15, 23, 42, 0.05);
+            --term-bg: #0F172A;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        .mono { font-family: 'Fira Code', monospace; }
+
+        /* ===== Decor background ===== */
+        #net { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+        .bg-grid {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            background-image:
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 56px 56px;
+            -webkit-mask-image: radial-gradient(ellipse at 50% 30%, #000 20%, transparent 75%);
+            mask-image: radial-gradient(ellipse at 50% 30%, #000 20%, transparent 75%);
+        }
+
+        .blob {
+            position: fixed; z-index: 0; border-radius: 50%;
+            filter: blur(90px); opacity: var(--blob-op);
+            pointer-events: none;
+            animation: drift 22s ease-in-out infinite alternate;
+        }
+        .blob.b1 { width: 520px; height: 520px; background: #8B5CF6; top: -140px; left: -140px; }
+        .blob.b2 { width: 480px; height: 480px; background: #06B6D4; top: 30%; right: -170px; animation-duration: 28s; animation-delay: -6s; }
+        .blob.b3 { width: 460px; height: 460px; background: #EC4899; bottom: -170px; left: 25%; animation-duration: 32s; animation-delay: -12s; }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(60px, -40px) scale(1.15); }
+            100% { transform: translate(-40px, 60px) scale(0.95); }
+        }
+
+        .cursor-glow {
+            position: fixed; left: 0; top: 0; width: 440px; height: 440px;
+            border-radius: 50%; pointer-events: none; z-index: 0; opacity: 0;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.2), transparent 65%);
+            transition: opacity 0.4s ease;
+            will-change: transform;
+        }
+
+        .progress { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 1100; }
+        .progress span {
+            display: block; height: 100%; width: 0;
+            background: var(--grad);
+            box-shadow: 0 0 14px rgba(6, 182, 212, 0.8);
+        }
+
+        main { position: relative; z-index: 1; }
+        footer { position: relative; z-index: 1; }
+
+        /* ===== Header ===== */
+        header {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            border-bottom: 1px solid transparent;
+            transition: background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+        }
+        header.scrolled {
+            background: var(--header-bg);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            border-bottom-color: var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            display: flex; align-items: center; gap: 12px;
+            color: var(--text-main); text-decoration: none;
+            font-weight: 800; font-size: 1.1rem; letter-spacing: -0.01em;
+        }
+        .logo-mark {
+            width: 38px; height: 38px; border-radius: 11px;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--grad); background-size: 200% 200%;
+            animation: gradShift 6s ease infinite;
+            color: #fff; font-weight: 800; font-size: 1.1rem;
+            box-shadow: 0 8px 22px -6px rgba(99, 102, 241, 0.8);
+        }
+
+        .nav-right { display: flex; align-items: center; gap: 2rem; }
+        .nav-links { display: flex; gap: 1.6rem; list-style: none; }
+        .nav-links a {
+            position: relative; color: var(--text-muted); text-decoration: none;
+            font-weight: 500; font-size: 0.93rem; padding: 0.3rem 0;
+            transition: color 0.3s ease;
+        }
+        .nav-links a::after {
+            content: ""; position: absolute; left: 0; bottom: -2px;
+            height: 2px; width: 0; background: var(--grad);
+            border-radius: 2px; transition: width 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-main); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        .controls { display: flex; gap: 10px; }
+        .icon-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-highlight);
+            color: var(--text-main);
+            min-width: 40px; height: 40px; padding: 0 0.8rem;
+            border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 0.85rem;
+            display: inline-flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .icon-btn:hover {
+            border-color: var(--a3); color: var(--a3);
+            box-shadow: 0 8px 22px -10px rgba(6, 182, 212, 0.9);
+            transform: translateY(-2px);
+        }
+        .menu-btn { display: none; }
+
+        /* ===== Reveal ===== */
+        .reveal { opacity: 0; translate: 0 34px; }
+        .reveal.in { opacity: 1; translate: 0 0; }
+        .reveal:not(.tilt) { transition: opacity 0.8s ease var(--rd, 0s), translate 0.8s cubic-bezier(.2,.7,.2,1) var(--rd, 0s); }
+        .reveal.tilt {
+            transition: opacity 0.8s ease var(--rd, 0s), translate 0.8s cubic-bezier(.2,.7,.2,1) var(--rd, 0s),
+                        transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* ===== Gradient text ===== */
+        .grad-text {
+            background: linear-gradient(100deg, #8B5CF6, #3B82F6, #06B6D4, #EC4899, #8B5CF6);
+            background-size: 200% auto;
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent; color: transparent;
+            animation: textShift 7s linear infinite;
+        }
+        @keyframes textShift { to { background-position: 200% center; } }
+        @keyframes gradShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+        /* ===== Hero ===== */
+        .hero {
+            position: relative; min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            padding: 8rem 2rem 5rem;
+        }
+        .hero-grid {
+            max-width: 1200px; width: 100%;
+            display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 3.5rem; align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 0.45rem 1.1rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.5);
+            color: #34D399; border-radius: 999px;
+            font-size: 0.85rem; font-weight: 600; margin-bottom: 1.4rem;
+        }
+        [data-theme="light"] .hero-badge { color: #047857; }
+        .pulse {
+            width: 9px; height: 9px; border-radius: 50%; background: #10B981;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: pulseRing 2s infinite;
+        }
+        @keyframes pulseRing {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 11px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .hero-hello { color: var(--text-muted); font-size: 1rem; margin-bottom: 0.2rem; }
+        .hero h1 {
+            font-size: clamp(2.6rem, 7vw, 4.6rem);
+            font-weight: 800; line-height: 1.05; letter-spacing: -0.03em;
+            margin: 0.2rem 0 1.1rem;
+        }
+        .hero h1 span { display: block; }
+
+        .typed-line { font-size: 1.15rem; color: var(--a3); min-height: 1.9rem; margin-bottom: 1.3rem; }
+        .typed-line .prompt { color: var(--a4); }
+        .caret {
+            display: inline-block; width: 2px; height: 1.2em; background: var(--a3);
+            margin-left: 3px; vertical-align: -0.2em; animation: blink 1s steps(1) infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .hero-desc { font-size: 1.06rem; color: var(--text-muted); max-width: 600px; margin-bottom: 2rem; }
+
+        .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.8rem; }
+
+        .btn {
+            position: relative; overflow: hidden;
+            padding: 0.9rem 1.8rem; border-radius: 12px;
+            font-weight: 600; font-size: 0.98rem; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
+            border: 1px solid transparent;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+        .btn:hover { transform: translateY(-3px); }
+        .btn-primary {
+            background: var(--grad); background-size: 200% 200%;
+            color: #fff; animation: gradShift 6s ease infinite;
+            box-shadow: 0 14px 32px -12px rgba(99, 102, 241, 0.9);
+        }
+        .btn-primary::after {
+            content: ""; position: absolute; top: 0; left: -75%;
+            width: 50%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+            transform: skewX(-20deg); transition: left 0.7s ease;
+        }
+        .btn-primary:hover::after { left: 130%; }
+        .btn-secondary {
+            background: var(--bg-card);
+            -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+            color: var(--text-main); border-color: var(--border-highlight);
+        }
+        .btn-secondary:hover {
+            border-color: var(--a3); color: var(--a3);
+            box-shadow: 0 14px 30px -14px rgba(6, 182, 212, 0.8);
+        }
+
+        .hero-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+        .tag {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 0.4rem 0.9rem; border-radius: 999px;
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            color: var(--text-muted); font-size: 0.82rem; font-weight: 500;
+        }
+        .tag i { color: var(--a1); }
+
+        /* Hero visual (terminal) */
+        .hero-visual { position: relative; display: flex; justify-content: center; }
+        .hero-visual-inner {
+            position: relative; width: 100%; max-width: 520px;
+            animation: floaty 7s ease-in-out infinite;
+        }
+        @keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+
+        .terminal {
+            background: var(--term-bg);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px; overflow: hidden;
+            box-shadow: 0 30px 70px -20px rgba(139, 92, 246, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.04);
+            transition: transform 0.2s ease;
+        }
+        .term-bar {
+            display: flex; align-items: center; gap: 8px; padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot.r { background: #FF5F57; } .dot.y { background: #FEBC2E; } .dot.g { background: #28C840; }
+        .term-title { margin: 0 auto; padding-right: 36px; font-size: 0.75rem; color: #94A3B8; font-family: 'Fira Code', monospace; }
+        .term-body {
+            padding: 1.3rem 1.4rem 1.5rem;
+            font-family: 'Fira Code', monospace; font-size: 0.84rem; line-height: 1.95;
+            color: #E2E8F0; min-height: 260px;
+        }
+        .term-body p { margin: 0; opacity: 0; animation: lineIn 0.5s ease forwards; animation-delay: var(--d); }
+        @keyframes lineIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: none; } }
+        .ps { color: #34D399; } .out { color: #67E8F9; } .ok { color: #A78BFA; }
+
+        .chip {
+            position: absolute; width: 54px; height: 54px; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; color: var(--c);
+            background: var(--bg-card);
+            -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+            border: 1px solid var(--border-highlight);
+            box-shadow: 0 12px 30px -8px rgba(var(--cr), 0.65);
+            animation: bob 5s ease-in-out infinite;
+        }
+        .chip.c1 { top: -22px; left: -18px; --c: #06B6D4; --cr: 6, 182, 212; }
+        .chip.c2 { top: 22%; right: -24px; --c: #8B5CF6; --cr: 139, 92, 246; animation-delay: -1.5s; }
+        .chip.c3 { bottom: 14%; left: -26px; --c: #EC4899; --cr: 236, 72, 153; animation-delay: -3s; }
+        .chip.c4 { bottom: -22px; right: 12%; --c: #F59E0B; --cr: 245, 158, 11; animation-delay: -2s; }
+        @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-12px) rotate(3deg); } }
+
+        .scroll-down {
+            position: absolute; bottom: 1.6rem; left: 50%; transform: translateX(-50%);
+            width: 40px; height: 40px; border-radius: 50%;
+            border: 1px solid var(--border-highlight);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-muted); text-decoration: none;
+            animation: nudge 2s ease-in-out infinite;
+        }
+        @keyframes nudge { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 8px); } }
+
+        /* ===== Stats ===== */
+        .stats-grid {
+            max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem;
+        }
+        .stat {
+            text-align: center; padding: 1.7rem 1rem;
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 18px;
+            -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+        }
+        .stat-num { font-size: 2.7rem; font-weight: 800; line-height: 1.1; }
+        .stat-label { color: var(--text-muted); font-size: 0.9rem; margin-top: 0.3rem; }
+
+        /* ===== Marquee ===== */
+        .marquee {
+            margin: 3.5rem 0 0; overflow: hidden;
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+        }
+        .marquee-track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+        .marquee:hover .marquee-track { animation-play-state: paused; }
+        .marquee-item {
+            margin-right: 1rem; padding: 0.6rem 1.3rem; border-radius: 999px;
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            font-family: 'Fira Code', monospace; font-size: 0.85rem; color: var(--text-main);
+            display: inline-flex; align-items: center; gap: 10px; white-space: nowrap;
+            transition: border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .marquee-item::before {
+            content: ""; width: 8px; height: 8px; border-radius: 50%;
+            background: var(--grad);
+        }
+        .marquee-item:hover { border-color: var(--a3); color: var(--a3); box-shadow: 0 10px 24px -12px rgba(6, 182, 212, 0.8); }
+        @keyframes marquee { to { transform: translateX(-50%); } }
+
+        /* ===== Sections ===== */
+        .section { max-width: 1200px; margin: 0 auto; padding: 6rem 2rem 2rem; }
+        .section-header { margin-bottom: 3rem; }
+        .eyebrow { display: inline-block; color: var(--a4); font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.6rem; }
+        .section-title {
+            font-size: clamp(1.7rem, 4vw, 2.4rem); font-weight: 800; letter-spacing: -0.02em;
+            display: flex; align-items: center; gap: 14px;
+        }
+        .section-title i {
+            width: 46px; height: 46px; border-radius: 13px; font-size: 1.15rem;
+            display: inline-flex; align-items: center; justify-content: center;
+            background: var(--grad); color: #fff;
+            box-shadow: 0 10px 26px -8px rgba(99, 102, 241, 0.8);
+        }
+        .section-title::after {
+            content: ""; flex: 1; height: 2px; margin-left: 10px; border-radius: 2px;
+            background: linear-gradient(90deg, var(--a1), transparent);
+        }
+        .section-desc { color: var(--text-muted); margin-top: 0.7rem; max-width: 720px; }
+
+        /* ===== Cards (spotlight + tilt) ===== */
+        .tilt { will-change: transform; }
+
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 1.8rem; }
+
+        .project-card {
+            position: relative;
+            background:
+                radial-gradient(380px circle at var(--mx, -300px) var(--my, -300px), rgba(var(--cr), 0.16), transparent 70%),
+                var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px; padding: 1.9rem;
+            display: flex; flex-direction: column;
+            -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+        }
+        .project-card::before, .contact-card::before {
+            content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.6px;
+            background: conic-gradient(from var(--angle), transparent 0 62%, var(--c) 82%, transparent 100%);
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude;
+            opacity: 0; transition: opacity 0.4s ease;
+            animation: rotateAngle 4s linear infinite; pointer-events: none;
+        }
+        .project-card:hover::before { opacity: 1; }
+        .project-card:hover { box-shadow: 0 26px 60px -24px rgba(var(--cr), 0.75); }
+        @keyframes rotateAngle { to { --angle: 360deg; } }
+
+        .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.3rem; }
+        .project-icon {
+            width: 54px; height: 54px; border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(var(--cr), 0.15); color: var(--c); font-size: 1.45rem;
+            box-shadow: inset 0 0 0 1px rgba(var(--cr), 0.35);
+            transition: transform 0.4s ease;
+        }
+        .project-card:hover .project-icon { transform: rotate(-8deg) scale(1.12); }
+        .card-num { font-size: 2.2rem; font-weight: 600; color: var(--c); opacity: 0.35; line-height: 1; }
+
+        .project-title { font-size: 1.22rem; font-weight: 700; margin-bottom: 0.7rem; line-height: 1.3; }
+        .project-desc { color: var(--text-muted); font-size: 0.94rem; margin-bottom: 1.4rem; flex-grow: 1; }
+
+        .project-techs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.4rem; }
+        .tech-badge {
+            font-family: 'Fira Code', monospace; font-size: 0.76rem;
+            padding: 0.3rem 0.7rem; border-radius: 8px; color: var(--c, var(--a3));
+            background: rgba(var(--cr, 6, 182, 212), 0.1);
+            border: 1px solid rgba(var(--cr, 6, 182, 212), 0.35);
+        }
+
+        .btn-modal {
+            background: transparent; border: 1px solid var(--border-highlight);
+            color: var(--text-main); width: 100%; padding: 0.75rem;
+            border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 0.92rem;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            transition: all 0.3s ease;
+        }
+        .btn-modal:hover {
+            background: var(--c); border-color: var(--c); color: #fff;
+            box-shadow: 0 12px 26px -10px rgba(var(--cr), 0.9);
+        }
+
+        /* Skills */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.4rem; }
+        .skill-card {
+            position: relative; overflow: hidden;
+            background:
+                radial-gradient(300px circle at var(--mx, -300px) var(--my, -300px), rgba(var(--cr), 0.15), transparent 70%),
+                var(--bg-card);
+            border: 1px solid var(--border-color); border-radius: 16px; padding: 1.6rem;
+            -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+        }
+        .skill-card::before {
+            content: ""; position: absolute; inset: 0 0 auto 0; height: 3px;
+            background: linear-gradient(90deg, var(--c), transparent);
+        }
+        .skill-card:hover { border-color: rgba(var(--cr), 0.6); box-shadow: 0 18px 40px -20px rgba(var(--cr), 0.8); }
+        .skill-header { display: flex; align-items: center; gap: 14px; margin-bottom: 1.1rem; }
+        .skill-ico {
+            width: 44px; height: 44px; border-radius: 12px; font-size: 1.1rem;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(var(--cr), 0.15); color: var(--c);
+        }
+        .skill-header h3 { font-size: 1.05rem; font-weight: 700; }
+        .skill-list { list-style: none; }
+        .skill-list li {
+            color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .skill-list li::before { content: "▹"; color: var(--c); font-weight: 700; }
+
+        .soft-wrap { margin-top: 3rem; }
+        .soft-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
+        .soft-title i { color: var(--a5); }
+        .soft-chips { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+        .soft-chip {
+            padding: 0.55rem 1.2rem; border-radius: 999px; font-weight: 600; font-size: 0.9rem;
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            transition: all 0.3s ease; cursor: default;
+        }
+        .soft-chip:hover {
+            transform: translateY(-4px) rotate(-1.5deg);
+            border-color: transparent; color: #fff;
+            background: linear-gradient(120deg, var(--a1), var(--a4));
+            box-shadow: 0 14px 28px -12px rgba(236, 72, 153, 0.8);
+        }
+
+        /* Timeline */
+        .timeline { position: relative; padding-left: 2.2rem; max-width: 860px; }
+        .timeline::before {
+            content: ""; position: absolute; left: 5px; top: 6px; bottom: 6px; width: 2px; border-radius: 2px;
+            background: linear-gradient(180deg, var(--a1), var(--a3), var(--a4));
+        }
+        .timeline-item {
+            position: relative; margin-bottom: 1.8rem; padding: 1.5rem 1.7rem;
+            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px;
+            -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+        .timeline-item:hover { border-color: var(--a3); transform: translateX(6px); }
+        .timeline-item::before {
+            content: ""; position: absolute; left: -2.2rem; top: 1.8rem;
+            width: 12px; height: 12px; border-radius: 50%;
+            background: var(--a3);
+            box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.2), 0 0 18px var(--a3);
+            animation: pulseDot 2.6s ease-in-out infinite;
+        }
+        @keyframes pulseDot { 50% { box-shadow: 0 0 0 8px rgba(6, 182, 212, 0.05), 0 0 26px var(--a3); } }
+        .timeline-date { font-family: 'Fira Code', monospace; font-size: 0.82rem; color: var(--a3); font-weight: 500; margin-bottom: 0.3rem; }
+        .timeline-title { font-size: 1.2rem; font-weight: 700; }
+        .timeline-company { color: var(--a1); font-size: 0.95rem; font-weight: 600; margin-bottom: 0.7rem; }
+        .timeline-desc { color: var(--text-muted); font-size: 0.94rem; padding-left: 1.1rem; }
+        .timeline-desc li { margin-bottom: 0.35rem; }
+        .timeline-desc li::marker { color: var(--a4); }
+
+        /* Certifications */
+        .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.4rem; }
+        .cert-card {
+            position: relative; text-align: center; padding: 2rem 1.5rem;
+            background:
+                radial-gradient(300px circle at var(--mx, -300px) var(--my, -300px), rgba(var(--cr), 0.16), transparent 70%),
+                var(--bg-card);
+            border: 1px solid var(--border-color); border-radius: 18px;
+            -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+        }
+        .cert-card:hover { border-color: rgba(var(--cr), 0.6); box-shadow: 0 22px 50px -24px rgba(var(--cr), 0.85); }
+        .cert-ico {
+            width: 66px; height: 66px; border-radius: 20px; margin: 0 auto 1.1rem; font-size: 1.7rem;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(var(--cr), 0.15); color: var(--c);
+            box-shadow: inset 0 0 0 1px rgba(var(--cr), 0.4);
+        }
+        .cert-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; }
+        .cert-card p { color: var(--text-muted); font-size: 0.9rem; }
+        .lang-list { list-style: none; margin-top: 0.4rem; }
+        .lang-list li { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.3rem; }
+
+        /* Contact */
+        .contact-card {
+            position: relative; max-width: 860px; margin: 0 auto; text-align: center;
+            padding: 3.2rem 2rem;
+            background:
+                radial-gradient(500px circle at var(--mx, 50%) var(--my, 0%), rgba(139, 92, 246, 0.18), transparent 70%),
+                var(--bg-card);
+            border: 1px solid var(--border-color); border-radius: 24px;
+            -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+            --c: #8B5CF6;
+        }
+        .contact-card::before { opacity: 1; background: conic-gradient(from var(--angle), transparent 0 55%, #8B5CF6 72%, #06B6D4 86%, transparent 100%); }
+        .contact-card h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; letter-spacing: -0.02em; }
+        .contact-sub { color: var(--text-muted); margin: 0.8rem auto 0; max-width: 560px; }
+        .contact-links { display: flex; justify-content: center; gap: 1.1rem; margin-top: 2.2rem; flex-wrap: wrap; }
+        .contact-item {
+            display: inline-flex; align-items: center; gap: 12px;
+            color: var(--text-main); text-decoration: none;
+            padding: 0.9rem 1.4rem; border-radius: 14px;
+            background: var(--bg-solid); border: 1px solid var(--border-color);
+            font-weight: 500; transition: all 0.3s ease;
+        }
+        .contact-item i { color: var(--a3); }
+        a.contact-item:hover {
+            border-color: var(--a3); color: var(--a3); transform: translateY(-4px);
+            box-shadow: 0 16px 30px -14px rgba(6, 182, 212, 0.85);
+        }
+
+        footer {
+            margin-top: 6rem; border-top: 1px solid var(--border-color);
+            text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.9rem;
+        }
+
+        .to-top {
+            position: fixed; right: 1.4rem; bottom: 1.4rem; z-index: 900;
+            width: 46px; height: 46px; border-radius: 14px; border: none; cursor: pointer;
+            background: var(--grad); color: #fff; font-size: 1rem;
+            box-shadow: 0 14px 30px -10px rgba(99, 102, 241, 0.9);
+            opacity: 0; visibility: hidden; transform: translateY(14px);
+            transition: all 0.35s ease;
+        }
+        .to-top.show { opacity: 1; visibility: visible; transform: none; }
+        .to-top:hover { transform: translateY(-4px); }
+
+        /* ===== Modals ===== */
+        .modal-overlay {
+            position: fixed; inset: 0; z-index: 2000; padding: 1rem;
+            background: var(--modal-bg);
+            -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+            display: none; justify-content: center; align-items: center;
+        }
+        .modal-overlay.open { display: flex; animation: fadeIn 0.25s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes popIn { from { opacity: 0; transform: translateY(24px) scale(0.94); } to { opacity: 1; transform: none; } }
+
+        .modal-content {
+            position: relative; width: 100%; max-width: 720px; max-height: 90vh; overflow-y: auto;
+            background: var(--bg-solid); border: 1px solid var(--border-highlight);
+            border-radius: 22px; padding: 2.3rem;
+            box-shadow: 0 40px 90px -25px rgba(var(--cr), 0.6);
+            animation: popIn 0.35s cubic-bezier(.2, .9, .3, 1.2);
+        }
+        .modal-content::before {
+            content: ""; position: absolute; inset: 0 0 auto 0; height: 4px;
+            background: linear-gradient(90deg, var(--c), var(--a3), var(--a4));
+        }
+        .modal-close {
+            position: absolute; top: 1.1rem; right: 1.2rem;
+            width: 38px; height: 38px; border-radius: 50%;
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            color: var(--text-muted); font-size: 1.4rem; cursor: pointer; line-height: 1;
+            transition: all 0.3s ease;
+        }
+        .modal-close:hover { color: #fff; background: var(--a4); border-color: var(--a4); transform: rotate(90deg); }
+        .modal-icon {
+            width: 54px; height: 54px; border-radius: 15px; font-size: 1.4rem; margin-bottom: 1rem;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(var(--cr), 0.15); color: var(--c);
+        }
+        .modal-title { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 0.5rem; padding-right: 2.4rem; }
+        .modal-section { margin-top: 1.6rem; }
+        .modal-section h4 { color: var(--c); margin-bottom: 0.6rem; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+        .modal-section p, .modal-section ul { color: var(--text-muted); font-size: 0.95rem; }
+        .modal-section ul { padding-left: 1.2rem; }
+        .modal-section li { margin-bottom: 0.45rem; }
+        .modal-section li::marker { color: var(--c); }
+        .modal-section .project-techs { margin-bottom: 0; }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 980px) {
+            .hero { padding-top: 7rem; }
+            .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .hero-visual-inner { max-width: 480px; }
+            .nav-right { gap: 1rem; }
+            .menu-btn { display: inline-flex; }
+            .nav-links {
+                position: absolute; top: 100%; left: 1rem; right: 1rem;
+                flex-direction: column; gap: 0.4rem; padding: 1rem 1.4rem;
+                background: var(--bg-solid); border: 1px solid var(--border-highlight);
+                border-radius: 16px; box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.6);
+                display: none;
+            }
+            .nav-links.open { display: flex; animation: popIn 0.25s ease; }
+            .nav-links a { font-size: 1rem; padding: 0.5rem 0; }
+        }
+        @media (max-width: 700px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .projects-grid { grid-template-columns: 1fr; }
+            .logo-text { font-size: 0.98rem; }
+            .nav-container { padding: 0.9rem 1.2rem; }
+            .section { padding: 5rem 1.2rem 1rem; }
+            .hero { padding-left: 1.2rem; padding-right: 1.2rem; }
+            .chip { display: none; }
+            .hero-btns .btn { width: 100%; justify-content: center; }
+            .contact-item { width: 100%; justify-content: center; }
+            .modal-content { padding: 1.8rem 1.3rem; }
+            .section-title::after { display: none; }
+        }
+        @media (hover: none) { .cursor-glow { display: none; } }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+            .reveal { opacity: 1; translate: none; }
+            .term-body p { opacity: 1; }
+            html { scroll-behavior: auto; }
+        }
+
+        @media print {
+            #net, .bg-grid, .blob, .cursor-glow, .progress, header, .to-top, .scroll-down, .modal-overlay, .hero-visual, .marquee { display: none !important; }
+            html[data-theme] { --bg-main: #fff; --bg-card: #fff; --bg-solid: #fff; --text-main: #111; --text-muted: #444; --border-color: #ccc; --border-highlight: #bbb; }
+            .reveal { opacity: 1 !important; translate: none !important; }
+            .grad-text { background: none; -webkit-text-fill-color: #4F46E5; color: #4F46E5; }
+            .hero { min-height: auto; padding-top: 2rem; }
+            .hero-grid { grid-template-columns: 1fr; }
+            .project-card, .skill-card, .timeline-item, .cert-card, .contact-card, .stat { -webkit-backdrop-filter: none; backdrop-filter: none; break-inside: avoid; }
+        }
+
+        /* ===== Portfolio Daniel — finition premium ===== */
+        .empty-section .section-header,
+        #e5-e6 .section-header,
+        #veille .section-header { margin-bottom: 2rem; }
+
+        .empty-workspace {
+            min-height: 360px;
+            border: 1px dashed rgba(139, 92, 246, .45);
+            border-radius: 24px;
+            background:
+                linear-gradient(135deg, rgba(139,92,246,.055), rgba(6,182,212,.035)),
+                repeating-linear-gradient(0deg, transparent 0 38px, rgba(255,255,255,.025) 39px),
+                var(--bg-card);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 3rem;
+            transition: .35s ease;
+            outline: none;
+            cursor: text;
+        }
+        .empty-workspace:hover, .empty-workspace:focus {
+            border-color: var(--a3);
+            box-shadow: 0 24px 60px -30px rgba(6,182,212,.55);
+            transform: translateY(-3px);
+        }
+        .empty-icon {
+            width: 72px; height: 72px; border-radius: 22px;
+            display: grid; place-items: center;
+            background: linear-gradient(135deg, rgba(139,92,246,.18), rgba(6,182,212,.12));
+            border: 1px solid var(--border-highlight);
+            color: var(--a3); font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .empty-title { font-size: 1.25rem; font-weight: 800; }
+        .empty-hint { color: var(--text-muted); margin-top: .35rem; font-size: .9rem; }
+
+        .e56-grid { display:grid; grid-template-columns: repeat(2,1fr); gap:1.6rem; }
+        .e56-card {
+            min-height: 330px;
+            position:relative;
+            padding:2rem;
+            border:1px solid var(--border-color);
+            border-radius:22px;
+            background:
+                radial-gradient(300px circle at 80% 10%, rgba(139,92,246,.12), transparent 70%),
+                var(--bg-card);
+            backdrop-filter: blur(14px);
+            outline:none;
+            cursor:text;
+            transition:.35s ease;
+            overflow:hidden;
+        }
+        .e56-card:hover, .e56-card:focus {
+            transform: translateY(-5px);
+            border-color: var(--a3);
+            box-shadow: 0 25px 55px -30px rgba(6,182,212,.7);
+        }
+        .e56-number {
+            font-family:'Fira Code',monospace;
+            font-size:3.8rem; font-weight:800; line-height:1;
+            background:var(--grad);
+            -webkit-background-clip:text; background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+        .e56-edit {
+            position:absolute; top:1.3rem; right:1.3rem;
+            width:42px; height:42px; border-radius:13px;
+            display:grid; place-items:center;
+            color:var(--text-muted);
+            background:var(--bg-card);
+            border:1px solid var(--border-color);
+        }
+        .veille-workspace {
+            min-height:280px; padding:1.5rem;
+            border:1px dashed rgba(6,182,212,.45);
+            border-radius:24px;
+            background:linear-gradient(135deg,rgba(6,182,212,.045),rgba(139,92,246,.035)),var(--bg-card);
+            outline:none; cursor:text;
+        }
+        .veille-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+        .veille-slot {
+            min-height:190px; border:1px dashed var(--border-highlight);
+            border-radius:18px; display:flex; flex-direction:column;
+            align-items:center; justify-content:center; gap:.7rem;
+            color:var(--text-muted); transition:.3s ease;
+        }
+        .veille-slot:hover { border-color:var(--a3); color:var(--a3); }
+        .veille-slot i { font-size:1.4rem; }
+
+        .hero h1 { text-shadow: 0 0 35px rgba(139,92,246,.16); }
+        .hero-hello { letter-spacing:.02em; }
+        .hero-desc { max-width: 650px; }
+        .section { scroll-margin-top: 85px; }
+        @media (max-width:700px) {
+            .e56-grid, .veille-grid { grid-template-columns:1fr; }
+            .empty-workspace { min-height:280px; }
+            .e56-card { min-height:250px; }
+        }
+
+        .edit-note {
+            position:fixed; left:18px; bottom:18px; z-index:800;
+            padding:.55rem .85rem; border-radius:999px;
+            font-size:.72rem; color:var(--text-muted);
+            background:var(--bg-card); border:1px solid var(--border-color);
+            backdrop-filter:blur(12px); opacity:.72;
+        }
+        .edit-note i { color:var(--a3); margin-right:.35rem; }
+        @media (max-width:700px){ .edit-note{display:none;} }
+
     </style>
 </head>
 <body>
+    <noscript><style>.reveal { opacity: 1 !important; translate: none !important; } .term-body p { opacity: 1; }</style></noscript>
+
     <div class="progress"><span id="progressBar"></span></div>
     <canvas id="net"></canvas>
     <div class="bg-grid"></div>
@@ -39,16 +833,16 @@
         <div class="nav-container">
             <a href="#top" class="logo">
                 <span class="logo-mark">D</span>
-                <span class="logo-text">DEDE-WANOU Mahunakpon Daniel</span>
+                <span class="logo-text">Daniel DEDE-WANOU</span>
             </a>
             <div class="nav-right">
                 <ul class="nav-links" id="navLinks">
-                    <li><a href="#projets" data-i18n="nav_projects">Projets</a></li>
-                    <li><a href="#competences" data-i18n="nav_skills">Compétences</a></li>
-                    <li><a href="#experience" data-i18n="nav_journey">Parcours</a></li>
-                    <li><a href="#e5e6">Épreuves E5 / E6</a></li>
-                    <li><a href="#certifications" data-i18n="nav_certs">Certifications</a></li>
-                    <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+                    <li><a href="#projets">Projets</a></li>
+                    <li><a href="#competences">Compétences</a></li>
+                    <li><a href="#experience">Parcours</a></li>
+                    <li><a href="#e5-e6">E5 / E6</a></li>
+                    <li><a href="#veille">Veille</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
                 <div class="controls">
                     <button id="themeToggle" class="icon-btn" title="Thème" aria-label="Changer de thème"><i class="fa-solid fa-sun"></i></button>
@@ -60,22 +854,27 @@
     </header>
 
     <main id="top">
+
         <!-- Hero -->
         <section class="hero" id="accueil">
             <div class="hero-grid">
                 <div class="hero-content">
-                    <p class="hero-hello mono reveal" style="--rd:.08s" data-i18n="hero_hello">Bonjour, je suis</p>
-                    <h1 class="reveal" style="--rd:.16s"><span>DEDE-WANOU</span><span class="grad-text">Mahunakpon Daniel</span></h1>
+                    <div class="hero-badge reveal">
+                        <span class="pulse"></span>
+                        <span data-i18n="hero_badge">En recherche d'alternance 2026-2027</span>
+                    </div>
+                    <p class="hero-hello mono reveal" style="--rd:.08s">Bonjour, je suis</p>
+                    <h1 class="reveal" style="--rd:.16s"><span>Daniel</span><span class="grad-text">DEDE-WANOU</span></h1>
                     <div class="typed-line mono reveal" style="--rd:.24s"><span class="prompt">&gt;</span> <span id="typed"></span><span class="caret"></span></div>
-                    
-                    <!-- Remplacement de la description par le titre strict -->
-                    <p class="hero-desc reveal" style="--rd:.32s">
-                        ADMINISTATEUR SYSTEME ET RESEAU
-                    </p>
-                    
+                    <p class="hero-desc reveal" style="--rd:.32s">Étudiant en 2e année de BTS SIO option SISR à l’Institut F2I, je me forme à l’administration des systèmes et des réseaux. Mon objectif professionnel est d’évoluer vers le métier d’Administrateur Système et Réseau.</p>
                     <div class="hero-btns reveal" style="--rd:.4s">
                         <a href="#projets" class="btn btn-primary"><i class="fa-solid fa-rocket"></i><span data-i18n="btn_projects">Découvrir mes projets</span></a>
                         <a href="#contact" class="btn btn-secondary"><i class="fa-solid fa-envelope"></i><span data-i18n="btn_contact">Me contacter</span></a>
+                    </div>
+                    <div class="hero-tags reveal" style="--rd:.48s">
+                        <span class="tag"><i class="fa-solid fa-graduation-cap"></i> BTS SIO · SISR · 2e année</span>
+                        <span class="tag"><i class="fa-solid fa-building-columns"></i> Institut F2I</span>
+                        <span class="tag"><i class="fa-solid fa-location-dot"></i> Champs-sur-Marne</span>
                     </div>
                 </div>
 
@@ -84,119 +883,689 @@
                         <div class="terminal tilt" id="terminal">
                             <div class="term-bar">
                                 <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-                                <span class="term-title">mahunakpon@sio: ~</span>
+                                <span class="term-title">daniel@sio: ~</span>
                             </div>
                             <div class="term-body">
-                                <p style="--d:.6s"><span class="ps">mahunakpon@sio:~$</span> whoami</p>
-                                <p class="out" style="--d:1.3s">dede-wanou.mahunakpon.daniel</p>
-                                <p style="--d:2s"><span class="ps">mahunakpon@sio:~$</span> cat formation.txt</p>
-                                <p class="out" style="--d:2.7s">BTS SIO · option SISR</p>
-                                <p style="--d:4.8s"><span class="ps">mahunakpon@sio:~$</span> <span class="caret"></span></p>
+                                <p style="--d:.6s"><span class="ps">daniel@sio:~$</span> whoami</p>
+                                <p class="out" style="--d:1.3s">Daniel DEDE-WANOU</p>
+                                <p style="--d:2s"><span class="ps">daniel@sio:~$</span> role</p>
+                                <p class="out" style="--d:2.7s">Administrateur Système et Réseau</p>
+                                <p style="--d:3.4s"><span class="ps">daniel@sio:~$</span> formation</p>
+                                <p class="ok" style="--d:4.1s">BTS SIO · SISR · 2e année ✔</p>
+                                <p style="--d:4.8s"><span class="ps">daniel@sio:~$</span> <span class="caret"></span></p>
                             </div>
                         </div>
+                        <div class="chip c1"><i class="fa-solid fa-network-wired"></i></div>
+                        <div class="chip c2"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div class="chip c3"><i class="fa-solid fa-database"></i></div>
+                        <div class="chip c4"><i class="fa-solid fa-server"></i></div>
                     </div>
                 </div>
             </div>
             <a href="#projets" class="scroll-down" aria-label="Défiler vers les projets"><i class="fa-solid fa-chevron-down"></i></a>
         </section>
 
-        <!-- Projets (VIDE COMME DEMANDÉ) -->
-        <section id="projets" class="section">
-            <div class="section-header reveal">
-                <span class="eyebrow mono" data-i18n="eb_projects">01 · Projets</span>
-                <h2 class="section-title"><i class="fa-solid fa-diagram-project"></i><span data-i18n="projects_title">Projets &amp; Réalisations Techniques</span></h2>
-            </div>
-            <div class="projects-grid">
-                <!-- VOS PROJETS SERONT AJOUTÉS ICI -->
-            </div>
-        </section>
-
-        <!-- Compétences (VIDE COMME DEMANDÉ) -->
-        <section id="competences" class="section">
-            <div class="section-header reveal">
-                <span class="eyebrow mono" data-i18n="eb_skills">02 · Compétences</span>
-                <h2 class="section-title"><i class="fa-solid fa-list-check"></i><span data-i18n="skills_title">Compétences Techniques</span></h2>
-            </div>
-            <div class="skills-grid">
-                 <!-- VOS COMPÉTENCES SERONT AJOUTÉES ICI -->
-            </div>
-        </section>
-
-        <!-- Parcours (VIDE COMME DEMANDÉ) -->
-        <section id="experience" class="section">
-            <div class="section-header reveal">
-                <span class="eyebrow mono" data-i18n="eb_journey">03 · Parcours</span>
-                <h2 class="section-title"><i class="fa-solid fa-briefcase"></i><span data-i18n="journey_title">Parcours &amp; Expériences</span></h2>
-            </div>
-            <div class="timeline">
-                <!-- VOTRE PARCOURS SERA AJOUTÉ ICI -->
+        <!-- Stats -->
+        <section class="stats">
+            <div class="stats-grid">
+                <div class="stat reveal">
+                    <div class="stat-num grad-text">02</div>
+                    <div class="stat-label">Année de BTS SIO</div>
+                </div>
+                <div class="stat reveal" style="--rd:.1s">
+                    <div class="stat-num grad-text">SISR</div>
+                    <div class="stat-label">Option Systèmes & Réseaux</div>
+                </div>
+                <div class="stat reveal" style="--rd:.2s">
+                    <div class="stat-num grad-text">E5</div>
+                    <div class="stat-label">Épreuve professionnelle</div>
+                </div>
+                <div class="stat reveal" style="--rd:.3s">
+                    <div class="stat-num grad-text">E6</div>
+                    <div class="stat-label">Épreuve professionnelle</div>
+                </div>
             </div>
         </section>
 
-        <!-- EPREUVES E5 ET E6 (NOUVELLE CASE) -->
-        <section id="e5e6" class="section">
+        <!-- Projets -->
+        <section id="projets" class="section empty-section">
             <div class="section-header reveal">
-                <span class="eyebrow mono">04 · Examen</span>
-                <h2 class="section-title"><i class="fa-solid fa-graduation-cap"></i><span>Épreuves E5 et E6</span></h2>
+                <span class="eyebrow mono">01 · Projets</span>
+                <h2 class="section-title"><i class="fa-solid fa-diagram-project"></i><span>Projets & Réalisations</span></h2>
+                <p class="section-desc">Cette partie est volontairement laissée vide pour que tu ajoutes toi-même tes projets et réalisations.</p>
             </div>
-            
-            <div class="projects-grid">
-                <!-- Case E5 -->
-                <article class="project-card tilt reveal" style="--c:#10B981;--cr:16,185,129">
-                    <div class="card-top">
-                        <div class="project-icon"><i class="fa-solid fa-file-contract"></i></div>
-                        <span class="card-num mono">E5</span>
-                    </div>
-                    <h3 class="project-title">Épreuve E5</h3>
-                    <p class="project-desc">
-                        <!-- VOTRE CONTENU E5 SERA AJOUTÉ ICI -->
-                    </p>
-                </article>
-
-                <!-- Case E6 -->
-                <article class="project-card tilt reveal" style="--c:#3B82F6;--cr:59,130,246">
-                    <div class="card-top">
-                        <div class="project-icon"><i class="fa-solid fa-file-shield"></i></div>
-                        <span class="card-num mono">E6</span>
-                    </div>
-                    <h3 class="project-title">Épreuve E6</h3>
-                    <p class="project-desc">
-                        <!-- VOTRE CONTENU E6 SERA AJOUTÉ ICI -->
-                    </p>
-                </article>
+            <div class="empty-workspace reveal" contenteditable="true" spellcheck="false" aria-label="Zone vide à compléter">
+                <div class="empty-icon"><i class="fa-solid fa-pen-to-square"></i></div>
+                <div class="empty-title">Zone à compléter</div>
+                <div class="empty-hint">Clique ici et ajoute tes informations.</div>
+            </div>
+        </section>
+        <section id="competences" class="section empty-section">
+            <div class="section-header reveal">
+                <span class="eyebrow mono">02 · Compétences</span>
+                <h2 class="section-title"><i class="fa-solid fa-list-check"></i><span>Compétences Techniques</span></h2>
+                <p class="section-desc">Espace réservé à tes compétences techniques et outils.</p>
+            </div>
+            <div class="empty-workspace reveal" contenteditable="true" spellcheck="false" aria-label="Zone vide à compléter">
+                <div class="empty-icon"><i class="fa-solid fa-pen-to-square"></i></div>
+                <div class="empty-title">Zone à compléter</div>
+                <div class="empty-hint">Clique ici et ajoute tes informations.</div>
+            </div>
+        </section> -->
+        <section id="experience" class="section empty-section">
+            <div class="section-header reveal">
+                <span class="eyebrow mono">03 · Parcours & Expérience</span>
+                <h2 class="section-title"><i class="fa-solid fa-route"></i><span>Parcours & Expérience</span></h2>
+                <p class="section-desc">Espace réservé à ton parcours scolaire, tes stages et tes expériences.</p>
+            </div>
+            <div class="empty-workspace reveal" contenteditable="true" spellcheck="false" aria-label="Zone vide à compléter">
+                <div class="empty-icon"><i class="fa-solid fa-pen-to-square"></i></div>
+                <div class="empty-title">Zone à compléter</div>
+                <div class="empty-hint">Clique ici et ajoute tes informations.</div>
+            </div>
+        </section>
+        
+        <!-- E5 / E6 -->
+        <section id="e5-e6" class="section">
+            <div class="section-header reveal">
+                <span class="eyebrow mono">04 · E5 / E6</span>
+                <h2 class="section-title"><i class="fa-solid fa-folder-open"></i><span>E5 &amp; E6</span></h2>
+                <p class="section-desc">Deux espaces réservés à tes éléments E5 et E6.</p>
+            </div>
+            <div class="e56-grid">
+                <div class="e56-card reveal" contenteditable="true" spellcheck="false">
+                    <div class="e56-number">E5</div>
+                    <div class="e56-edit"><i class="fa-solid fa-pen-to-square"></i></div>
+                    <h3></h3>
+                    <p></p>
+                </div>
+                <div class="e56-card reveal" style="--rd:.12s" contenteditable="true" spellcheck="false">
+                    <div class="e56-number">E6</div>
+                    <div class="e56-edit"><i class="fa-solid fa-pen-to-square"></i></div>
+                    <h3></h3>
+                    <p></p>
+                </div>
             </div>
         </section>
 
-        <!-- Certifications -->
-        <section id="certifications" class="section">
+        <!-- Veille -->
+        <section id="veille" class="section">
             <div class="section-header reveal">
-                <span class="eyebrow mono" data-i18n="eb_certs">05 · Certifications</span>
+                <span class="eyebrow mono">05 · Veille</span>
+                <h2 class="section-title"><i class="fa-solid fa-rss"></i><span>Veille Technologique</span></h2>
+                <p class="section-desc">Espace réservé à tes recherches, sources et synthèses de veille.</p>
+            </div>
+            <div class="veille-workspace reveal" contenteditable="true" spellcheck="false">
+                <div class="veille-grid">
+                    <div class="veille-slot"><i class="fa-solid fa-magnifying-glass"></i><span></span></div>
+                    <div class="veille-slot"><i class="fa-solid fa-newspaper"></i><span></span></div>
+                    <div class="veille-slot"><i class="fa-solid fa-link"></i><span></span></div>
+                </div>
+            </div>
+        </section>
+
+<section id="certifications" class="section">
+            <div class="section-header reveal">
+                <span class="eyebrow mono" data-i18n="eb_certs">06 · Certifications</span>
                 <h2 class="section-title"><i class="fa-solid fa-award"></i><span data-i18n="certs_title">Certifications &amp; Langues</span></h2>
+                <p class="section-desc" data-i18n="certs_desc">Attestations obtenues et langues pratiquées.</p>
             </div>
+
             <div class="cert-grid">
-                 <!-- VOS CERTIFICATIONS SERONT AJOUTÉES ICI -->
+                <div class="cert-card tilt reveal" style="--c:#EC4899;--cr:236,72,153">
+                    <div class="cert-ico"><i class="fa-solid fa-user-shield"></i></div>
+                    <h3>SecNumacadémie — ANSSI</h3>
+                    <p data-i18n="c1_sub">Attestation de sensibilisation à la sécurité numérique</p>
+                </div>
+                <div class="cert-card tilt reveal" style="--c:#06B6D4;--cr:6,182,212;--rd:.1s">
+                    <div class="cert-ico"><i class="fa-solid fa-certificate"></i></div>
+                    <h3>Cisco Networking Academy</h3>
+                    <p data-i18n="c2_sub">Certification Cybersécurité / Réseaux</p>
+                </div>
+                <div class="cert-card tilt reveal" style="--c:#F59E0B;--cr:245,158,11;--rd:.2s">
+                    <div class="cert-ico"><i class="fa-solid fa-language"></i></div>
+                    <h3 data-i18n="c3_title">Langues</h3>
+                    <ul class="lang-list">
+                        <li data-i18n="c3_l1">Français</li>
+                        <li data-i18n="c3_l2">Anglais · niveau B2</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
         <!-- Contact -->
         <section id="contact" class="section">
             <div class="contact-card tilt reveal" id="contactCard">
-                <span class="eyebrow mono" data-i18n="eb_contact">06 · Contact</span>
+                <span class="eyebrow mono" data-i18n="eb_contact">07 · Contact</span>
                 <h2 class="grad-text" data-i18n="contact_title">Travaillons ensemble</h2>
-                <p class="contact-sub" data-i18n="contact_subtitle">DEDE-WANOU Mahunakpon Daniel — ADMINISTATEUR SYSTEME ET RESEAU.</p>
+                <p class="contact-sub">Daniel DEDE-WANOU — Administrateur Système et Réseau · BTS SIO SISR · Institut F2I.</p>
+
                 <div class="contact-links">
-                    <!-- VOS LIENS DE CONTACT -->
+                    <a href="mailto:danieldedewanou1@gmail.com" class="contact-item">
+                        <i class="fa-solid fa-envelope"></i> danieldedewanou1@gmail.com
+                    </a>
+                    <a href="tel:0759338642" class="contact-item">
+                        <i class="fa-solid fa-phone"></i> 07 59 33 86 42
+                    </a>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-location-dot"></i> Champs-sur-Marne (77420)
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 DEDE-WANOU Mahunakpon Daniel — Portfolio BTS SIO SISR</p>
-    </footer>
+    <footer><span>© 2026 Daniel DEDE-WANOU</span><span> · </span><span>Administrateur Système et Réseau</span></footer>
 
     <button class="to-top" id="toTop" aria-label="Retour en haut"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <!-- Modales -->
+    <div id="modal1" class="modal-overlay" role="dialog" aria-modal="true">
+        <div class="modal-content" style="--c:#8B5CF6;--cr:139,92,246">
+            <button class="modal-close" onclick="closeModal('modal1')" aria-label="Fermer">&times;</button>
+            <div class="modal-icon"><i class="fa-solid fa-cubes"></i></div>
+            <h3 class="modal-title" data-i18n="p1_title">Projet à compléter</h3>
+            <div class="modal-section">
+                <h4><i class="fa-solid fa-bullseye"></i> <span data-i18n="mod_obj">Objectif du projet</span></h4>
+                <p data-i18n="mod1_obj">Disposer d'un laboratoire de machines virtuelles pour tester des systèmes Windows et Windows Server sans toucher au poste physique.</p>
+            </div>
+            <div class="modal-section">
+                <h4><i class="fa-solid fa-gears"></i> <span data-i18n="mod_actions">Actions réalisées</span></h4>
+                <ul>
+                    <li data-i18n="mod1_a1">Création et configuration de machines virtuelles Windows 10, Windows 11 et Windows Server sous VMware Workstation.</li>
+                    <li data-i18n="mod1_a2">Téléchargement des images ISO officielles de Windows 11 et Windows Server depuis Microsoft.</li>
+                    <li data-i18n="mod1_a3">Résolution des erreurs de compatibilité TPM 2.0 à l'installation de Windows 11 (ajout d'un TPM virtuel ou contournement par le registre).</li>
+                    <li data-i18n="mod1_a4">Gestion des disques virtuels : compactage des VMDK, nettoyage des snapshots et déplacement des machines virtuelles vers le NAS.</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h4><i class="fa-solid fa-screwdriver-wrench"></i> <span data-i18n="mod_tools">Outils utilisés</span></h4>
+                <div class="project-techs"><span class="tech-badge">VMware Workstation</span><span class="tech-badge">Windows 10/11</span><span class="tech-badge">Windows Server</span><span class="tech-badge">TPM 2.0</span><span class="tech-badge">VMDK</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal-overlay" role="dialog" aria-modal="true">
+        <div class="modal-content" style="--c:#06B6D4;--cr:6,182,212">
+            <button class="modal-close" onclick="closeModal('modal2')" aria-label="Fermer">&times;</button>
+            <div class="modal-icon"><i class="fa-solid fa-hard-drive"></i></div>
+            <h3 class="modal-title" data-i18n="p2_title">Projet à compléter</h3>
+            <div class="modal-section">
+                <h4><i class="fa-solid fa-bullseye"></i> <span data-i18n="mod_obj">Objectif du projet</span></h4>
+                <p data-i18n="mod2_obj">Centraliser le stockage sur un NAS Synology et fiabiliser le réseau local de la maison.</p>
+            </div>
+            <div class="modal-section">
+                <h4><i class="fa-solid fa-gears"></i> <span data-i18n="mod_actions">Actions réalisées</span></h4>
+                <ul>
+                    <li data-i18n="mod2_a1">Administration du NAS Synology (NASEMP) en SSH : nettoyage et organisation des fichiers multimédias.</li>
+                    <li data-i18n="mod2_a2">Mise en place de l'accès distant au NAS avec QuickConnect.</li>
+                    <li data-i18n="mod2_a3">Récupération de l'accès administrateur de la Freebox grâce au bouton de réinitialisation physique, sans modifier les réglages Wi-Fi.</li>
+                    <li data-i18n="mod2_a4">Ajout d'un TP-Link Archer AX12 en point d'accès Wi-Fi via un switch, avec une adresse IP statique configurée en CMD et l'appareil identifié grâce à son adresse MAC.</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h4><i class="fa-solid fa-screwdriver-wrench"></i> <span data-i18n="mod_tools">Outils utilisés</span></h4>
+                <div class="project-techs"><span class="tech-badge">Synology DSM</span><span class="tech-badge">SSH</span><span class="tech-badge">QuickConnect</span><span class="tech-badge">Freebox</span><span class="tech-badge">TP-Link Archer AX12</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal3" class="modal-overlay" role="dialog" aria-modal="true">
+        <div class="modal-content" style="--c:#10B981;--cr:16,185,129">
+            <button class="modal-close" onclick="closeModal('modal3')" aria-label="Fermer">&times;</button>
+            <div class="modal-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+            <h3 class="modal-title" data-i18n="p3_title">Projet à compléter</h3>
+            <div class="modal-section">
+                <h4><i class="fa-solid fa-bullseye"></i> <span data-i18n="mod_obj">Objectif du projet</span></h4>
+                <p data-i18n="mod3_obj">Automatiser la sauvegarde des données vers le NAS pour ne plus dépendre d'une manipulation manuelle.</p>
+            </div>
+            <div class="modal-section">
+                <h4><i class="fa-solid fa-gears"></i> <span data-i18n="mod_actions">Actions réalisées</span></h4>
+                <ul>
+                    <li data-i18n="mod3_a1">Écriture de scripts de sauvegarde basés sur robocopy.</li>
+                    <li data-i18n="mod3_a2">Planification de l'exécution avec le Planificateur de tâches Windows.</li>
+                    <li data-i18n="mod3_a3">Utilisation du NAS Synology comme destination des sauvegardes.</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h4><i class="fa-solid fa-screwdriver-wrench"></i> <span data-i18n="mod_tools">Outils utilisés</span></h4>
+                <div class="project-techs"><span class="tech-badge">robocopy</span><span class="tech-badge">Planificateur de tâches</span><span class="tech-badge">Windows</span><span class="tech-badge">Synology</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal4" class="modal-overlay" role="dialog" aria-modal="true">
+        <div class="modal-content" style="--c:#EC4899;--cr:236,72,153">
+            <button class="modal-close" onclick="closeModal('modal4')" aria-label="Fermer">&times;</button>
+            <div class="modal-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <h3 class="modal-title" data-i18n="p4_title">Sécurité DHCP sous Packet Tracer</h3>
+            <div class="modal-section">
+                <h4><i class="fa-solid fa-bullseye"></i> <span data-i18n="mod_obj">Objectif du projet</span></h4>
+                <p data-i18n="mod4_obj">Comprendre les attaques visant le service DHCP et les moyens de s'en protéger.</p>
+            </div>
+            <div class="modal-section">
+                <h4><i class="fa-solid fa-gears"></i> <span data-i18n="mod_actions">Actions réalisées</span></h4>
+                <ul>
+                    <li data-i18n="mod4_a1">Étude des attaques DHCP Starvation (épuisement du pool d'adresses) et Rogue DHCP (faux serveur DHCP).</li>
+                    <li data-i18n="mod4_a2">Simulation de ces scénarios dans Cisco Packet Tracer.</li>
+                    <li data-i18n="mod4_a3">Étude de la contre-mesure DHCP Snooping.</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h4><i class="fa-solid fa-screwdriver-wrench"></i> <span data-i18n="mod_tools">Outils utilisés</span></h4>
+                <div class="project-techs"><span class="tech-badge">Cisco Packet Tracer</span><span class="tech-badge">DHCP</span><span class="tech-badge">DHCP Snooping</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal5" class="modal-overlay" role="dialog" aria-modal="true">
+        <div class="modal-content" style="--c:#F59E0B;--cr:245,158,11">
+            <button class="modal-close" onclick="closeModal('modal5')" aria-label="Fermer">&times;</button>
+            <div class="modal-icon"><i class="fa-solid fa-network-wired"></i></div>
+            <h3 class="modal-title" data-i18n="p5_title">Infrastructure réseau : baie, brassage &amp; VLAN</h3>
+            <div class="modal-section">
+                <h4><i class="fa-solid fa-bullseye"></i> <span data-i18n="mod_obj">Objectif du projet</span></h4>
+                <p data-i18n="mod5_obj">Mettre en pratique le câblage et l'organisation d'une infrastructure réseau d'entreprise.</p>
+            </div>
+            <div class="modal-section">
+                <h4><i class="fa-solid fa-gears"></i> <span data-i18n="mod_actions">Actions réalisées</span></h4>
+                <ul>
+                    <li data-i18n="mod5_a1">Câblage d'une baie de brassage et organisation des panneaux de brassage.</li>
+                    <li data-i18n="mod5_a2">Configuration de VLAN pour segmenter le réseau.</li>
+                    <li data-i18n="mod5_a3">Mise en place de la connectivité du NAS sur l'infrastructure.</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h4><i class="fa-solid fa-screwdriver-wrench"></i> <span data-i18n="mod_tools">Outils utilisés</span></h4>
+                <div class="project-techs"><span class="tech-badge">VLAN</span><span class="tech-badge">Patch panel</span><span class="tech-badge">Rack</span><span class="tech-badge">NAS</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal6" class="modal-overlay" role="dialog" aria-modal="true">
+        <div class="modal-content" style="--c:#3B82F6;--cr:59,130,246">
+            <button class="modal-close" onclick="closeModal('modal6')" aria-label="Fermer">&times;</button>
+            <div class="modal-icon"><i class="fa-solid fa-store"></i></div>
+            <h3 class="modal-title" data-i18n="p6_title">Projet à compléter</h3>
+            <div class="modal-section">
+                <h4><i class="fa-solid fa-bullseye"></i> <span data-i18n="mod_obj">Objectif du projet</span></h4>
+                <p data-i18n="mod6_obj">Créer un site de petites annonces dynamique, dans l'esprit de LeBonCoin, pour mettre en pratique le développement web et les bases de données.</p>
+            </div>
+            <div class="modal-section">
+                <h4><i class="fa-solid fa-gears"></i> <span data-i18n="mod_actions">Actions réalisées</span></h4>
+                <ul>
+                    <li data-i18n="mod6_a1">Création de la base de données « leboncoin » avec phpMyAdmin : tables annonces, utilisateurs, favoris et messages.</li>
+                    <li data-i18n="mod6_a2">Développement des pages PHP et des feuilles de style CSS sous VS Code.</li>
+                    <li data-i18n="mod6_a3">Mise en route de l'environnement local MAMP et résolution des problèmes de configuration (temps d'exécution maximal, repérage du bon fichier php.ini parmi plusieurs versions de PHP).</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h4><i class="fa-solid fa-screwdriver-wrench"></i> <span data-i18n="mod_tools">Outils utilisés</span></h4>
+                <div class="project-techs"><span class="tech-badge">PHP</span><span class="tech-badge">MySQL</span><span class="tech-badge">phpMyAdmin</span><span class="tech-badge">VS Code</span><span class="tech-badge">MAMP</span><span class="tech-badge">CSS</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ===== Modales ===== */
+        function openModal(id) {
+            document.getElementById(id).classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.querySelectorAll('.modal-overlay').forEach(function (m) {
+            m.addEventListener('click', function (e) { if (e.target === m) closeModal(m.id); });
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.open').forEach(function (m) { closeModal(m.id); });
+            }
+        });
+
+        /* ===== Thème ===== */
+        var themeBtn = document.getElementById('themeToggle');
+        function setThemeIcon() {
+            var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            themeBtn.innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+        }
+        try {
+            var saved = localStorage.getItem('portfolio-theme');
+            if (saved === 'light' || saved === 'dark') document.documentElement.setAttribute('data-theme', saved);
+        } catch (e) {}
+        setThemeIcon();
+        themeBtn.addEventListener('click', function () {
+            var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            var next = isDark ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            try { localStorage.setItem('portfolio-theme', next); } catch (e) {}
+            setThemeIcon();
+        });
+
+        /* ===== Traductions ===== */
+        var translations = {
+            fr: {},
+            en: {
+                nav_projects: "Projects", nav_skills: "Skills", nav_journey: "Journey", nav_certs: "Certifications", nav_contact: "Contact",
+                hero_badge: "Open to a work-study placement 2026-2027",
+                hero_hello: "Hello, I'm",
+                hero_desc: "BTS SIO (SISR option) student at Institut F2I, I learn networking, systems and cybersecurity by doing: a virtualization lab, NAS administration, network infrastructure and web development. I'm looking for a work-study placement for 2026-2027 (one week at school, one week at the company).",
+                btn_projects: "Discover my projects", btn_contact: "Contact me",
+                stat_projects: "Projects completed", stat_weeks: "Internship weeks", stat_certs: "Certifications", stat_tech: "Technologies",
+                eb_projects: "01 · Projects", eb_skills: "02 · Skills", eb_journey: "03 · Journey", eb_certs: "06 · Certifications", eb_contact: "07 · Contact",
+                projects_title: "Projects & Technical Achievements",
+                projects_desc: "Labs, network administration, security and web development: hands-on projects carried out throughout my studies.",
+                btn_details: "View details",
+                p1_title: "VMware Virtualization Lab",
+                p1_desc: "A lab of Windows 10, Windows 11 and Windows Server virtual machines on VMware Workstation, to test and practice safely.",
+                p2_title: "Home Network & Synology NAS",
+                p2_desc: "Administration of a Synology NAS (NASEMP), QuickConnect remote access and setup of a TP-Link Wi-Fi access point on the local network.",
+                p3_title: "Automated Backups with robocopy",
+                p3_desc: "robocopy scripts scheduled with Windows Task Scheduler to automatically back up data to the NAS.",
+                p4_title: "DHCP Security in Packet Tracer",
+                p4_desc: "Study and simulation of DHCP Starvation and Rogue DHCP attacks, and DHCP Snooping protection, in Cisco Packet Tracer.",
+                p5_title: "Network Infrastructure: Rack, Patching & VLANs",
+                p5_desc: "Infrastructure lab work: rack cabling, patch panels, VLAN segmentation and NAS connectivity.",
+                p6_title: "LeBonCoin-style Classifieds Site (PHP/MySQL)",
+                p6_desc: "Dynamic classifieds website inspired by LeBonCoin: MySQL database, PHP pages and CSS layout.",
+                mod_obj: "Project objective", mod_actions: "Actions taken", mod_tools: "Tools used",
+                mod1_obj: "Have a virtual machine lab to test Windows and Windows Server systems without touching the physical computer.",
+                mod1_a1: "Created and configured Windows 10, Windows 11 and Windows Server virtual machines on VMware Workstation.",
+                mod1_a2: "Downloaded the official Windows 11 and Windows Server ISO images from Microsoft.",
+                mod1_a3: "Solved TPM 2.0 compatibility errors when installing Windows 11 (adding a virtual TPM or using a registry bypass).",
+                mod1_a4: "Managed virtual disks: compacting VMDKs, cleaning up snapshots and moving virtual machines to the NAS.",
+                mod2_obj: "Centralize storage on a Synology NAS and make the home local network more reliable.",
+                mod2_a1: "Administered the Synology NAS (NASEMP) over SSH: cleanup and organization of media files.",
+                mod2_a2: "Set up remote access to the NAS with QuickConnect.",
+                mod2_a3: "Recovered the Freebox admin access using the physical reset button, without changing the Wi-Fi settings.",
+                mod2_a4: "Added a TP-Link Archer AX12 as a Wi-Fi access point through a switch, with a static IP address set in CMD and the device identified by its MAC address.",
+                mod3_obj: "Automate data backups to the NAS so they no longer depend on a manual task.",
+                mod3_a1: "Wrote backup scripts based on robocopy.",
+                mod3_a2: "Scheduled their execution with Windows Task Scheduler.",
+                mod3_a3: "Used the Synology NAS as the backup destination.",
+                mod4_obj: "Understand attacks targeting the DHCP service and how to protect against them.",
+                mod4_a1: "Studied DHCP Starvation (address pool exhaustion) and Rogue DHCP (fake DHCP server) attacks.",
+                mod4_a2: "Simulated these scenarios in Cisco Packet Tracer.",
+                mod4_a3: "Studied the DHCP Snooping countermeasure.",
+                mod5_obj: "Practice cabling and organizing an enterprise network infrastructure.",
+                mod5_a1: "Cabled a patch rack and organized the patch panels.",
+                mod5_a2: "Configured VLANs to segment the network.",
+                mod5_a3: "Set up NAS connectivity on the infrastructure.",
+                mod6_obj: "Build a dynamic classifieds website in the spirit of LeBonCoin to practice web development and databases.",
+                mod6_a1: "Created the \"leboncoin\" database with phpMyAdmin: ads, users, favorites and messages tables.",
+                mod6_a2: "Developed the PHP pages and CSS stylesheets in VS Code.",
+                mod6_a3: "Set up the local MAMP environment and solved configuration issues (maximum execution time, finding the right php.ini among several PHP versions).",
+                skills_title: "Technical Skills", skills_desc: "The areas I have trained in and put into practice.",
+                s1_title: "Networking", s1_1: "VLAN & routing",
+                s2_title: "Systems & Administration", s2_1: "Users, permissions & GPO",
+                s3_title: "Virtualization", s3_1: "Snapshots & disk management",
+                s4_title: "Services & Storage",
+                s5_title: "Security", s5_1: "Firewall & ACL", s5_2: "Backups",
+                s6_title: "Monitoring & Diagnostics",
+                s7_title: "Scripting & Data", s7_1: "PowerShell (basics)",
+                s8_title: "Support & Office Tools", s8_1: "Installation & configuration", s8_2: "Maintenance & incident resolution",
+                soft_title: "Soft skills",
+                soft1: "Team spirit", soft2: "Commitment", soft3: "Responsiveness", soft4: "Autonomy", soft5: "Rigor & method", soft6: "Service mindset", soft7: "Technical curiosity & tech watch",
+                journey_title: "Experience & Education", journey_desc: "My studies and my immersion in a company.",
+                exp1_date: "May 11 – June 26, 2026 · 6 weeks",
+                exp1_title: "IT Technician Intern",
+                exp1_l1: "IT support: installation, configuration and maintenance.",
+                exp1_l2: "Incident resolution and user assistance.",
+                exp1_l3: "Six-week immersion in a professional environment.",
+                edu1_desc: "Specialization in systems administration, networks and cybersecurity.",
+                edu1_desc2: "First year completed (2025-2026), second year in progress.",
+                edu2_title: "General Baccalaureate",
+                certs_title: "Certifications & Languages", certs_desc: "Certificates earned and languages spoken.",
+                c1_sub: "Certificate in digital security awareness",
+                c2_sub: "Cybersecurity / Networking certification",
+                c3_title: "Languages", c3_l1: "French", c3_l2: "English · B2 level",
+                contact_title: "Let's work together",
+                contact_subtitle: "Daniel DEDE-WANOU — BTS SIO SISR student, looking for a work-study placement for 2026-2027 (one week at school, one week at the company)."
+            }
+        };
+
+        var currentLang = 'fr';
+        var langBtn = document.getElementById('langToggle');
+        var typedPhrases = {
+            fr: ["Étudiant BTS SIO — option SISR", "Administration Windows Server & Active Directory", "Réseaux, VLAN & virtualisation", "Cybersécurité & support informatique"],
+            en: ["BTS SIO student — SISR option", "Windows Server & Active Directory administration", "Networking, VLAN & virtualization", "Cybersecurity & IT support"]
+        };
+
+        document.querySelectorAll('[data-i18n]').forEach(function (el) {
+            var k = el.getAttribute('data-i18n');
+            if (!(k in translations.fr)) translations.fr[k] = el.textContent.trim();
+        });
+
+        function applyLang() {
+            document.documentElement.lang = currentLang;
+            document.querySelectorAll('[data-i18n]').forEach(function (el) {
+                var v = translations[currentLang][el.getAttribute('data-i18n')];
+                if (v !== undefined) el.textContent = v;
+            });
+            langBtn.textContent = currentLang === 'fr' ? 'EN' : 'FR';
+            restartTyped();
+        }
+        langBtn.addEventListener('click', function () {
+            currentLang = currentLang === 'fr' ? 'en' : 'fr';
+            applyLang();
+        });
+
+        /* ===== Effet machine à écrire ===== */
+        var typedEl = document.getElementById('typed');
+        var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var ti = 0, ci = 0, deleting = false, typedTimer = null;
+
+        function typeTick() {
+            var list = typedPhrases[currentLang];
+            var word = list[ti % list.length];
+            if (!deleting) {
+                ci++;
+                typedEl.textContent = word.slice(0, ci);
+                if (ci === word.length) { deleting = true; typedTimer = setTimeout(typeTick, 1700); return; }
+                typedTimer = setTimeout(typeTick, 55);
+            } else {
+                ci--;
+                typedEl.textContent = word.slice(0, ci);
+                if (ci === 0) { deleting = false; ti++; typedTimer = setTimeout(typeTick, 350); return; }
+                typedTimer = setTimeout(typeTick, 28);
+            }
+        }
+        function restartTyped() {
+            clearTimeout(typedTimer);
+            ti = 0; ci = 0; deleting = false;
+            if (reduceMotion) { typedEl.textContent = typedPhrases[currentLang][0]; return; }
+            typedEl.textContent = '';
+            typeTick();
+        }
+        restartTyped();
+
+        /* ===== Apparition au scroll ===== */
+        var revealEls = document.querySelectorAll('.reveal');
+        if ('IntersectionObserver' in window) {
+            var revObs = new IntersectionObserver(function (entries) {
+                entries.forEach(function (en) {
+                    if (en.isIntersecting) { en.target.classList.add('in'); revObs.unobserve(en.target); }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+            revealEls.forEach(function (el) { revObs.observe(el); });
+        } else {
+            revealEls.forEach(function (el) { el.classList.add('in'); });
+        }
+
+        /* ===== Compteurs animés ===== */
+        function runCounter(el) {
+            var target = parseInt(el.getAttribute('data-count'), 10);
+            var suffix = el.getAttribute('data-suffix') || '';
+            if (reduceMotion) { el.textContent = target + suffix; return; }
+            var start = null, dur = 1500;
+            function step(ts) {
+                if (!start) start = ts;
+                var p = Math.min((ts - start) / dur, 1);
+                var eased = 1 - Math.pow(1 - p, 3);
+                el.textContent = Math.round(target * eased) + suffix;
+                if (p < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+        var counters = document.querySelectorAll('[data-count]');
+        if ('IntersectionObserver' in window) {
+            var cntObs = new IntersectionObserver(function (entries) {
+                entries.forEach(function (en) {
+                    if (en.isIntersecting) { runCounter(en.target); cntObs.unobserve(en.target); }
+                });
+            }, { threshold: 0.6 });
+            counters.forEach(function (c) { cntObs.observe(c); });
+        } else {
+            counters.forEach(runCounter);
+        }
+
+        /* ===== Bandeau de technologies (boucle infinie) ===== */
+        var track = document.getElementById('marqueeTrack');
+        track.innerHTML += track.innerHTML;
+
+        /* ===== Effet 3D + halo lumineux sur les cartes ===== */
+        var canHover = window.matchMedia('(hover: hover)').matches && !reduceMotion;
+        document.querySelectorAll('.tilt').forEach(function (el) {
+            var max = el.id === 'terminal' ? 6 : (el.id === 'contactCard' ? 2 : 8);
+            el.addEventListener('mousemove', function (e) {
+                var r = el.getBoundingClientRect();
+                var x = e.clientX - r.left, y = e.clientY - r.top;
+                el.style.setProperty('--mx', x + 'px');
+                el.style.setProperty('--my', y + 'px');
+                if (!canHover) return;
+                var rx = ((y / r.height) - 0.5) * -max;
+                var ry = ((x / r.width) - 0.5) * max;
+                el.style.transform = 'perspective(900px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translateY(-6px)';
+            });
+            el.addEventListener('mouseleave', function () { el.style.transform = ''; });
+        });
+
+        /* ===== Halo qui suit la souris ===== */
+        var glow = document.getElementById('cursorGlow');
+        window.addEventListener('mousemove', function (e) {
+            glow.style.opacity = 1;
+            glow.style.transform = 'translate(' + (e.clientX - 220) + 'px,' + (e.clientY - 220) + 'px)';
+        });
+        document.addEventListener('mouseleave', function () { glow.style.opacity = 0; });
+
+        /* ===== Scroll : progression, header, bouton retour, lien actif ===== */
+        var bar = document.getElementById('progressBar');
+        var header = document.getElementById('header');
+        var toTop = document.getElementById('toTop');
+        var navAnchors = document.querySelectorAll('.nav-links a');
+        var sectionIds = ['projets', 'competences', 'experience', 'e5-e6', 'veille', 'certifications', 'contact'];
+        var ticking = false;
+
+        function onScroll() {
+            var y = window.scrollY || document.documentElement.scrollTop;
+            var h = document.documentElement.scrollHeight - window.innerHeight;
+            bar.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+            header.classList.toggle('scrolled', y > 20);
+            toTop.classList.toggle('show', y > 600);
+            var current = '';
+            sectionIds.forEach(function (id) {
+                var s = document.getElementById(id);
+                if (s && s.getBoundingClientRect().top <= 160) current = id;
+            });
+            navAnchors.forEach(function (a) {
+                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+            });
+            ticking = false;
+        }
+        window.addEventListener('scroll', function () {
+            if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
+        }, { passive: true });
+        onScroll();
+
+        toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+        /* ===== Menu mobile ===== */
+        var navLinks = document.getElementById('navLinks');
+        document.getElementById('menuBtn').addEventListener('click', function () { navLinks.classList.toggle('open'); });
+        navAnchors.forEach(function (a) { a.addEventListener('click', function () { navLinks.classList.remove('open'); }); });
+
+        /* ===== Réseau de particules (canvas) ===== */
+        (function () {
+            var c = document.getElementById('net');
+            if (!c || reduceMotion) return;
+            var ctx = c.getContext('2d');
+            var w, h, dpr, pts = [];
+            var mouse = { x: null, y: null };
+
+            function resize() {
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+                w = c.width = Math.floor(window.innerWidth * dpr);
+                h = c.height = Math.floor(window.innerHeight * dpr);
+                c.style.width = window.innerWidth + 'px';
+                c.style.height = window.innerHeight + 'px';
+                var n = Math.min(90, Math.floor((window.innerWidth * window.innerHeight) / 16000));
+                pts = [];
+                for (var i = 0; i < n; i++) {
+                    pts.push({
+                        x: Math.random() * w, y: Math.random() * h,
+                        vx: (Math.random() - 0.5) * 0.4 * dpr, vy: (Math.random() - 0.5) * 0.4 * dpr,
+                        r: (Math.random() * 1.6 + 0.7) * dpr
+                    });
+                }
+            }
+            window.addEventListener('resize', resize);
+            window.addEventListener('mousemove', function (e) { mouse.x = e.clientX * dpr; mouse.y = e.clientY * dpr; });
+            window.addEventListener('mouseout', function () { mouse.x = null; mouse.y = null; });
+            resize();
+
+            function draw() {
+                ctx.clearRect(0, 0, w, h);
+                var light = document.documentElement.getAttribute('data-theme') === 'light';
+                var col = light ? '79,70,229' : '120,170,255';
+                var link = 130 * dpr, mlink = 180 * dpr;
+
+                for (var i = 0; i < pts.length; i++) {
+                    var p = pts[i];
+                    p.x += p.vx; p.y += p.vy;
+                    if (p.x < 0 || p.x > w) p.vx *= -1;
+                    if (p.y < 0 || p.y > h) p.vy *= -1;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(' + col + ',0.75)';
+                    ctx.fill();
+
+                    for (var j = i + 1; j < pts.length; j++) {
+                        var q = pts[j];
+                        var dx = p.x - q.x, dy = p.y - q.y;
+                        var d = Math.sqrt(dx * dx + dy * dy);
+                        if (d < link) {
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
+                            ctx.strokeStyle = 'rgba(' + col + ',' + (0.22 * (1 - d / link)) + ')';
+                            ctx.lineWidth = dpr * 0.8;
+                            ctx.stroke();
+                        }
+                    }
+                    if (mouse.x !== null) {
+                        var mx = p.x - mouse.x, my = p.y - mouse.y;
+                        var md = Math.sqrt(mx * mx + my * my);
+                        if (md < mlink) {
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y); ctx.lineTo(mouse.x, mouse.y);
+                            ctx.strokeStyle = 'rgba(' + (light ? '236,72,153' : '6,182,212') + ',' + (0.5 * (1 - md / mlink)) + ')';
+                            ctx.lineWidth = dpr;
+                            ctx.stroke();
+                            p.x += mx * 0.004; p.y += my * 0.004;
+                        }
+                    }
+                }
+                requestAnimationFrame(draw);
+            }
+            draw();
+        })();
+    </script>
+
+    <div class="edit-note" aria-hidden="true">
+        <i class="fa-solid fa-pen"></i> Les zones E5, E6, Veille et les espaces vides sont éditables dans le navigateur.
+    </div>
 
 </body>
 </html>
