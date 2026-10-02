@@ -1,357 +1,202 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
+<html lang="fr" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | DEDE-WANOU Daniel - BTS SIO SISR</title>
-    <!-- Tailwind CSS pour un design moderne et rapide -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        cyber: {
-                            dark: '#0a0f1d',
-                            card: '#111827',
-                            border: '#1f2937',
-                            neon: '#00ffcc',
-                            purple: '#a855f7',
-                            accent: '#38bdf8'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <title>DEDE-WANOU Mahunakpon Daniel - Portfolio BTS SIO SISR</title>
+    <meta name="description" content="Portfolio de DEDE-WANOU Mahunakpon Daniel, étudiant en BTS SIO option SISR, Administrateur Système et Réseau.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%238B5CF6'/%3E%3Cstop offset='1' stop-color='%2306B6D4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='43' font-size='32' font-family='Arial' font-weight='800' text-anchor='middle' fill='white'%3ED%3C/text%3E%3C/svg%3E">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;600;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0a0f1d;
-            color: #f3f4f6;
+        /* Conservez exactement tout votre CSS ici, tel qu'il était dans votre fichier d'origine */
+        @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+        :root {
+            --bg-main: #060914; --bg-card: rgba(17, 24, 39, 0.55); --bg-card-hover: rgba(30, 41, 59, 0.7);
+            --bg-solid: #0E1424; --a1: #8B5CF6; --a2: #3B82F6; --a3: #06B6D4; --a4: #EC4899; --a5: #F59E0B;
+            --a6: #10B981; --grad: linear-gradient(120deg, #8B5CF6, #3B82F6 40%, #06B6D4 75%, #10B981);
+            --text-main: #F1F5F9; --text-muted: #94A3B8; --border-color: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(255, 255, 255, 0.18); --shadow-glow: 0 20px 50px -15px rgba(139, 92, 246, 0.45);
+            --modal-bg: rgba(3, 6, 15, 0.8); --header-bg: rgba(6, 9, 20, 0.72); --blob-op: 0.5;
+            --grid-line: rgba(255, 255, 255, 0.035); --term-bg: #0A0F1C;
         }
-        code, .font-mono {
-            font-family: 'Fira Code', monospace;
-        }
-        .glow-text {
-            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5), 0 0 20px rgba(0, 255, 204, 0.3);
-        }
-        .glow-box {
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.15);
-            border: 1px solid rgba(0, 255, 204, 0.3);
-        }
-        .glow-box:hover {
-            box-shadow: 0 0 25px rgba(0, 255, 204, 0.35);
-            border-color: rgba(0, 255, 204, 0.7);
-        }
+        /* ... (Veuillez insérer le reste de vos styles CSS originaux ici) ... */
     </style>
 </head>
-<body class="bg-cyber-dark text-gray-100 selection:bg-cyber-neon selection:text-cyber-dark">
+<body>
+    <div class="progress"><span id="progressBar"></span></div>
+    <canvas id="net"></canvas>
+    <div class="bg-grid"></div>
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
 
-    <!-- NAVIGATION -->
-    <nav class="sticky top-0 z-50 bg-cyber-dark/80 backdrop-blur-md border-b border-cyber-border">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="font-mono font-bold text-lg text-cyber-neon tracking-wider">
-                [ <span class="text-white">DEDE-WANOU.DANIEL</span> ]
-            </div>
-            <div class="hidden md:flex space-x-6 text-sm font-mono">
-                <a href="#accueil" class="hover:text-cyber-neon transition-colors">#Accueil</a>
-                <a href="#profil" class="hover:text-cyber-neon transition-colors">#Profil</a>
-                <a href="#btssio" class="hover:text-cyber-neon transition-colors">#BTS_SIO</a>
-                <a href="#e5" class="hover:text-cyber-neon transition-colors">#E5</a>
-                <a href="#e6" class="hover:text-cyber-neon transition-colors">#E6</a>
-                <a href="#veille" class="hover:text-cyber-neon transition-colors">#Veille</a>
-            </div>
-            <div>
-                <a href="CV.pdf" target="_blank" rel="noopener noreferrer" class="font-mono text-xs px-4 py-2 rounded bg-cyber-neon/10 text-cyber-neon border border-cyber-neon/30 hover:bg-cyber-neon/20 transition-all">
-                    <i class="fa-solid fa-download mr-1"></i> CV.PDF
-                </a>
+    <!-- Header -->
+    <header id="header">
+        <div class="nav-container">
+            <a href="#top" class="logo">
+                <span class="logo-mark">D</span>
+                <span class="logo-text">DEDE-WANOU Mahunakpon Daniel</span>
+            </a>
+            <div class="nav-right">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#projets" data-i18n="nav_projects">Projets</a></li>
+                    <li><a href="#competences" data-i18n="nav_skills">Compétences</a></li>
+                    <li><a href="#experience" data-i18n="nav_journey">Parcours</a></li>
+                    <li><a href="#e5e6">Épreuves E5 / E6</a></li>
+                    <li><a href="#certifications" data-i18n="nav_certs">Certifications</a></li>
+                    <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+                </ul>
+                <div class="controls">
+                    <button id="themeToggle" class="icon-btn" title="Thème" aria-label="Changer de thème"><i class="fa-solid fa-sun"></i></button>
+                    <button id="langToggle" class="icon-btn" title="Langue" aria-label="Changer de langue">EN</button>
+                    <button id="menuBtn" class="icon-btn menu-btn" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+                </div>
             </div>
         </div>
-    </nav>
-
-    <!-- ACCUEIL / HERO SECTION -->
-    <header id="accueil" class="min-h-[85vh] flex flex-col items-center justify-center text-center px-4 relative overflow-hidden">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyber-purple/10 via-cyber-dark to-cyber-dark -z-10"></div>
-
-        <div class="inline-block p-4 rounded-full bg-cyber-neon/10 border border-cyber-neon/30 mb-6 text-cyber-neon text-2xl animate-pulse">
-            <i class="fa-solid fa-skull-crossbones"></i>
-        </div>
-
-        <h1 class="text-4xl sm:text-6xl font-black tracking-tight mb-4 font-mono">
-            [ <span class="text-cyber-neon glow-text">DEDE-WANOU DANIEL</span> ]
-        </h1>
-
-        <p class="font-mono text-cyber-accent text-sm sm:text-base tracking-widest uppercase mb-2">
-            // ÉTUDIANT EN BTS SIO OPTION SISR
-        </p>
-        <p class="font-mono text-gray-400 text-xs sm:text-sm">
-            ADMINISTRATION SYSTÈMES, RÉSEAUX & CYBERSÉCURITÉ
-        </p>
-        <p class="font-mono text-gray-500 text-xs mt-4">
-            <i class="fa-solid fa-location-dot mr-1"></i> Champs-sur-Marne (77420)
-            &nbsp;|&nbsp; <i class="fa-solid fa-envelope mr-1"></i> danieldedewanou1@gmail.com
-        </p>
     </header>
 
-    <main class="max-w-6xl mx-auto px-4 py-12 space-y-24">
-
-        <!-- PROFIL -->
-        <section id="profil" class="space-y-8">
-            <div class="border-b border-cyber-border pb-4">
-                <h2 class="text-2xl sm:text-3xl font-mono font-bold text-white">
-                    PROFIL_<span class="text-cyber-neon">DANIEL</span>
-                </h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="md:col-span-2 space-y-4 text-gray-300 leading-relaxed text-sm sm:text-base">
-                    <p>
-                        Je m'appelle <b>Daniel DEDE-WANOU</b>, je suis étudiant en 2<sup>e</sup> année de BTS SIO option SISR à l'Institut F2I. Titulaire d'un bac général obtenu en 2024, j'ai choisi cette formation parce que je suis passionné par le domaine de l'informatique, en particulier les réseaux, la virtualisation et l'administration systèmes.
+    <main id="top">
+        <!-- Hero -->
+        <section class="hero" id="accueil">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <p class="hero-hello mono reveal" style="--rd:.08s" data-i18n="hero_hello">Bonjour, je suis</p>
+                    <h1 class="reveal" style="--rd:.16s"><span>DEDE-WANOU</span><span class="grad-text">Mahunakpon Daniel</span></h1>
+                    <div class="typed-line mono reveal" style="--rd:.24s"><span class="prompt">&gt;</span> <span id="typed"></span><span class="caret"></span></div>
+                    
+                    <!-- Remplacement de la description par le titre strict -->
+                    <p class="hero-desc reveal" style="--rd:.32s">
+                        ADMINISTATEUR SYSTEME ET RESEAU
                     </p>
-                    <p>
-                        Après l'obtention de mon BTS SIO, je souhaite poursuivre mes études afin de me spécialiser dans le domaine de la cybersécurité.
-                    </p>
-                    <p>
-                        Mon objectif est d'intégrer une licence ou un bachelor, puis de continuer vers un master pour développer mes compétences en tant qu'<b>Administrateur Sécurité</b>.
-                    </p>
-                    <p>
-                        Je suis actuellement à la recherche d'une <b>alternance pour l'année 2026-2027</b> (rythme : une semaine en cours / une semaine en entreprise).
-                    </p>
-
-                    <!-- Expérience Professionnelle -->
-                    <div class="mt-8 p-6 rounded-lg bg-cyber-card border border-cyber-border">
-                        <h3 class="text-cyber-neon font-mono text-lg mb-3"><i class="fa-solid fa-briefcase mr-2"></i>Expérience Professionnelle</h3>
-                        <div class="space-y-1">
-                            <div class="font-semibold text-white">Stagiaire Technicien Informatique</div>
-                            <div class="text-xs font-mono text-cyber-accent">ELEESEO — Saint-Brice-sous-Forêt // 11 mai – 26 juin (6 semaines)</div>
-                            <ul class="list-disc list-inside text-xs sm:text-sm text-gray-400 mt-2 space-y-1">
-                                <li>Gestion et organisation du matériel (inventaire, suivi des équipements)</li>
-                                <li>Entretien et maintenance d'équipements professionnels</li>
-                                <li>Intervention technique et support utilisateur</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="pt-4">
-                        <a href="CV.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center font-mono text-sm px-5 py-2.5 rounded bg-cyber-neon text-cyber-dark font-bold hover:bg-cyber-accent transition-colors">
-                            <i class="fa-solid fa-file-arrow-down mr-2"></i> TÉLÉCHARGER CV
-                        </a>
+                    
+                    <div class="hero-btns reveal" style="--rd:.4s">
+                        <a href="#projets" class="btn btn-primary"><i class="fa-solid fa-rocket"></i><span data-i18n="btn_projects">Découvrir mes projets</span></a>
+                        <a href="#contact" class="btn btn-secondary"><i class="fa-solid fa-envelope"></i><span data-i18n="btn_contact">Me contacter</span></a>
                     </div>
                 </div>
 
-                <!-- Certifications -->
-                <div class="space-y-4">
-                    <h3 class="text-lg font-mono font-bold text-white border-l-2 border-cyber-neon pl-3">Certifications</h3>
-
-                    <a href="#" target="_blank" rel="noopener noreferrer" class="block p-4 rounded-lg bg-cyber-card glow-box transition-all">
-                        <div class="flex items-center space-x-3">
-                            <div class="text-cyber-neon text-xl"><i class="fa-solid fa-certificate"></i></div>
-                            <div>
-                                <span class="text-xs font-mono text-cyber-accent">CISCO_01</span>
-                                <h4 class="text-sm font-bold text-white">Networking Basics</h4>
-                                <p class="text-xs text-gray-400">Cisco Academy</p>
+                <div class="hero-visual reveal" style="--rd:.3s">
+                    <div class="hero-visual-inner">
+                        <div class="terminal tilt" id="terminal">
+                            <div class="term-bar">
+                                <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+                                <span class="term-title">mahunakpon@sio: ~</span>
+                            </div>
+                            <div class="term-body">
+                                <p style="--d:.6s"><span class="ps">mahunakpon@sio:~$</span> whoami</p>
+                                <p class="out" style="--d:1.3s">dede-wanou.mahunakpon.daniel</p>
+                                <p style="--d:2s"><span class="ps">mahunakpon@sio:~$</span> cat formation.txt</p>
+                                <p class="out" style="--d:2.7s">BTS SIO · option SISR</p>
+                                <p style="--d:4.8s"><span class="ps">mahunakpon@sio:~$</span> <span class="caret"></span></p>
                             </div>
                         </div>
-                    </a>
-
-                    <a href="#" target="_blank" rel="noopener noreferrer" class="block p-4 rounded-lg bg-cyber-card glow-box transition-all">
-                        <div class="flex items-center space-x-3">
-                            <div class="text-cyber-neon text-xl"><i class="fa-solid fa-shield-halved"></i></div>
-                            <div>
-                                <span class="text-xs font-mono text-cyber-accent">CISCO_02</span>
-                                <h4 class="text-sm font-bold text-white">Intro to Cybersecurity</h4>
-                                <p class="text-xs text-gray-400">Cisco Academy</p>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="#" target="_blank" rel="noopener noreferrer" class="block p-4 rounded-lg bg-cyber-card glow-box transition-all">
-                        <div class="flex items-center space-x-3">
-                            <div class="text-cyber-neon text-xl"><i class="fa-solid fa-lock"></i></div>
-                            <div>
-                                <span class="text-xs font-mono text-cyber-accent">ANSSI_01</span>
-                                <h4 class="text-sm font-bold text-white">SecNumacadémie</h4>
-                                <p class="text-xs text-gray-400">ANSSI — Sensibilisation à la sécurité numérique</p>
-                            </div>
-                        </div>
-                    </a>
+                    </div>
                 </div>
+            </div>
+            <a href="#projets" class="scroll-down" aria-label="Défiler vers les projets"><i class="fa-solid fa-chevron-down"></i></a>
+        </section>
+
+        <!-- Projets (VIDE COMME DEMANDÉ) -->
+        <section id="projets" class="section">
+            <div class="section-header reveal">
+                <span class="eyebrow mono" data-i18n="eb_projects">01 · Projets</span>
+                <h2 class="section-title"><i class="fa-solid fa-diagram-project"></i><span data-i18n="projects_title">Projets &amp; Réalisations Techniques</span></h2>
+            </div>
+            <div class="projects-grid">
+                <!-- VOS PROJETS SERONT AJOUTÉS ICI -->
             </div>
         </section>
 
-        <!-- BTS SIO -->
-        <section id="btssio" class="space-y-8">
-            <div class="border-b border-cyber-border pb-4">
-                <h2 class="text-2xl sm:text-3xl font-mono font-bold text-white">
-                    BTS_<span class="text-cyber-neon">SIO</span>
-                </h2>
+        <!-- Compétences (VIDE COMME DEMANDÉ) -->
+        <section id="competences" class="section">
+            <div class="section-header reveal">
+                <span class="eyebrow mono" data-i18n="eb_skills">02 · Compétences</span>
+                <h2 class="section-title"><i class="fa-solid fa-list-check"></i><span data-i18n="skills_title">Compétences Techniques</span></h2>
             </div>
+            <div class="skills-grid">
+                 <!-- VOS COMPÉTENCES SERONT AJOUTÉES ICI -->
+            </div>
+        </section>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Option SISR -->
-                <div class="p-6 rounded-xl bg-cyber-card border border-cyber-border space-y-4">
-                    <div class="font-mono text-cyber-neon font-bold">— OPTION SISR</div>
-                    <p class="text-sm text-gray-300 leading-relaxed">
-                        L'option <b>SISR (Solutions d'infrastructure, systèmes et réseaux)</b> se concentre sur trois domaines clés : le support informatique, la cybersécurité, et l'administration des systèmes et réseaux.
+        <!-- Parcours (VIDE COMME DEMANDÉ) -->
+        <section id="experience" class="section">
+            <div class="section-header reveal">
+                <span class="eyebrow mono" data-i18n="eb_journey">03 · Parcours</span>
+                <h2 class="section-title"><i class="fa-solid fa-briefcase"></i><span data-i18n="journey_title">Parcours &amp; Expériences</span></h2>
+            </div>
+            <div class="timeline">
+                <!-- VOTRE PARCOURS SERA AJOUTÉ ICI -->
+            </div>
+        </section>
+
+        <!-- EPREUVES E5 ET E6 (NOUVELLE CASE) -->
+        <section id="e5e6" class="section">
+            <div class="section-header reveal">
+                <span class="eyebrow mono">04 · Examen</span>
+                <h2 class="section-title"><i class="fa-solid fa-graduation-cap"></i><span>Épreuves E5 et E6</span></h2>
+            </div>
+            
+            <div class="projects-grid">
+                <!-- Case E5 -->
+                <article class="project-card tilt reveal" style="--c:#10B981;--cr:16,185,129">
+                    <div class="card-top">
+                        <div class="project-icon"><i class="fa-solid fa-file-contract"></i></div>
+                        <span class="card-num mono">E5</span>
+                    </div>
+                    <h3 class="project-title">Épreuve E5</h3>
+                    <p class="project-desc">
+                        <!-- VOTRE CONTENU E5 SERA AJOUTÉ ICI -->
                     </p>
-                    <ul class="list-disc list-inside text-xs text-gray-400 space-y-1">
-                        <li>Technicien d'infrastructure / Réseau</li>
-                        <li>Administrateur systèmes et réseaux</li>
-                        <li>Support systèmes et réseaux</li>
-                    </ul>
-                </div>
+                </article>
 
-                <!-- Option SLAM -->
-                <div class="p-6 rounded-xl bg-cyber-card border border-cyber-border space-y-4">
-                    <div class="font-mono text-cyber-purple font-bold">— OPTION SLAM</div>
-                    <p class="text-sm text-gray-300 leading-relaxed">
-                        L'option <b>SLAM (Solutions logicielles et applications métiers)</b> forme à la conception, au développement, au déploiement et à la maintenance de solutions logicielles et applicatives.
+                <!-- Case E6 -->
+                <article class="project-card tilt reveal" style="--c:#3B82F6;--cr:59,130,246">
+                    <div class="card-top">
+                        <div class="project-icon"><i class="fa-solid fa-file-shield"></i></div>
+                        <span class="card-num mono">E6</span>
+                    </div>
+                    <h3 class="project-title">Épreuve E6</h3>
+                    <p class="project-desc">
+                        <!-- VOTRE CONTENU E6 SERA AJOUTÉ ICI -->
                     </p>
-                    <ul class="list-disc list-inside text-xs text-gray-400 space-y-1">
-                        <li>Développeur d'applications</li>
-                        <li>Analyste / Concepteur logiciel</li>
-                        <li>Support applicatif</li>
-                    </ul>
-                </div>
+                </article>
             </div>
         </section>
 
-        <!-- DOSSIER E5 -->
-        <section id="e5" class="space-y-8">
-            <div class="border-b border-cyber-border pb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                    <h2 class="text-2xl sm:text-3xl font-mono font-bold text-white">
-                        DOSSIER_<span class="text-cyber-neon">E5</span>
-                    </h2>
-                    <p class="font-mono text-xs text-gray-400 mt-1">[ RÉALISATIONS TECHNIQUES & SITUATIONS PROFESSIONNELLES ]</p>
-                </div>
+        <!-- Certifications -->
+        <section id="certifications" class="section">
+            <div class="section-header reveal">
+                <span class="eyebrow mono" data-i18n="eb_certs">05 · Certifications</span>
+                <h2 class="section-title"><i class="fa-solid fa-award"></i><span data-i18n="certs_title">Certifications &amp; Langues</span></h2>
             </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Projet 1 -->
-                <a href="#" target="_blank" rel="noopener noreferrer" class="p-6 rounded-xl bg-cyber-card glow-box flex flex-col justify-between transition-all group">
-                    <div class="space-y-3">
-                        <span class="font-mono text-xs text-cyber-neon">#01_SYS</span>
-                        <h3 class="font-bold text-white group-hover:text-cyber-neon transition-colors">Laboratoire de virtualisation VMware</h3>
-                        <p class="text-xs text-gray-400">Création et administration de machines virtuelles Windows 10/11 et Windows Server avec VMware Workstation, gestion des disques.</p>
-                    </div>
-                    <div class="mt-6 font-mono text-xs text-cyber-accent flex items-center">
-                        Voir le document <i class="fa-solid fa-arrow-up-right-from-square ml-1.5 text-[10px]"></i>
-                    </div>
-                </a>
-
-                <!-- Projet 2 -->
-                <a href="#" target="_blank" rel="noopener noreferrer" class="p-6 rounded-xl bg-cyber-card glow-box flex flex-col justify-between transition-all group">
-                    <div class="space-y-3">
-                        <span class="font-mono text-xs text-cyber-neon">#02_RESEAU</span>
-                        <h3 class="font-bold text-white group-hover:text-cyber-neon transition-colors">Réseau domestique & NAS Synology</h3>
-                        <p class="text-xs text-gray-400">Mise en place et configuration d'un réseau avec routeurs, points d'accès Wi-Fi et d'un serveur NAS Synology.</p>
-                    </div>
-                    <div class="mt-6 font-mono text-xs text-cyber-accent flex items-center">
-                        Voir le document <i class="fa-solid fa-arrow-up-right-from-square ml-1.5 text-[10px]"></i>
-                    </div>
-                </a>
-
-                <!-- Projet 3 -->
-                <a href="#" target="_blank" rel="noopener noreferrer" class="p-6 rounded-xl bg-cyber-card glow-box flex flex-col justify-between transition-all group">
-                    <div class="space-y-3">
-                        <span class="font-mono text-xs text-cyber-neon">#03_SYNTHESE</span>
-                        <h3 class="font-bold text-white group-hover:text-cyber-neon transition-colors">Tableau de Synthèse</h3>
-                        <p class="text-xs text-gray-400">Portefeuille de validation des compétences SISR liées aux réalisations.</p>
-                    </div>
-                    <div class="mt-6 font-mono text-xs text-cyber-accent flex items-center">
-                        Consulter <i class="fa-solid fa-arrow-up-right-from-square ml-1.5 text-[10px]"></i>
-                    </div>
-                </a>
+            <div class="cert-grid">
+                 <!-- VOS CERTIFICATIONS SERONT AJOUTÉES ICI -->
             </div>
         </section>
 
-        <!-- EPREUVE E6 -->
-        <section id="e6" class="space-y-8">
-            <div class="border-b border-cyber-border pb-4">
-                <h2 class="text-2xl sm:text-3xl font-mono font-bold text-white">
-                    EPREUVE_<span class="text-cyber-neon">E6</span>
-                </h2>
-                <p class="font-mono text-xs text-gray-400 mt-1">[ PARCOURS PROFESSIONNEL & SITUATIONS ACCOMPAGNÉES ]</p>
-            </div>
-
-            <div class="space-y-4">
-                <!-- Situation 1 -->
-                <div class="p-6 rounded-xl bg-cyber-card border border-cyber-border flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                    <div class="space-y-2">
-                        <span class="font-mono text-xs text-cyber-neon">#01_E6</span>
-                        <h3 class="font-bold text-white">Stage de technicien informatique — ELEESEO</h3>
-                        <p class="text-xs text-gray-400 max-w-2xl">Stage de 6 semaines à Saint-Brice-sous-Forêt : inventaire et suivi du matériel, maintenance d'équipements, interventions techniques et support aux utilisateurs.</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2 shrink-0 font-mono text-xs">
-                        <a href="#" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded bg-cyber-neon/10 text-cyber-neon border border-cyber-neon/30 hover:bg-cyber-neon/20 transition-all">
-                            <i class="fa-solid fa-file-lines mr-1"></i> Fiche
-                        </a>
-                        <a href="#" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded bg-cyber-accent/10 text-cyber-accent border border-cyber-accent/30 hover:bg-cyber-accent/20 transition-all">
-                            <i class="fa-solid fa-book mr-1"></i> Doc technique
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Situation 2 -->
-                <div class="p-6 rounded-xl bg-cyber-card border border-cyber-border flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                    <div class="space-y-2">
-                        <span class="font-mono text-xs text-cyber-neon">#02_E6</span>
-                        <h3 class="font-bold text-white">Projet web LeBonCoin (PHP / MySQL)</h3>
-                        <p class="text-xs text-gray-400 max-w-2xl">Développement d'un site de petites annonces inspiré de LeBonCoin en PHP et MySQL, réalisé dans le cadre de la formation.</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2 shrink-0 font-mono text-xs">
-                        <a href="#" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded bg-cyber-neon/10 text-cyber-neon border border-cyber-neon/30 hover:bg-cyber-neon/20 transition-all">
-                            <i class="fa-solid fa-file-lines mr-1"></i> Fiche
-                        </a>
-                        <a href="#" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded bg-cyber-accent/10 text-cyber-accent border border-cyber-accent/30 hover:bg-cyber-accent/20 transition-all">
-                            <i class="fa-solid fa-book mr-1"></i> Doc technique
-                        </a>
-                    </div>
+        <!-- Contact -->
+        <section id="contact" class="section">
+            <div class="contact-card tilt reveal" id="contactCard">
+                <span class="eyebrow mono" data-i18n="eb_contact">06 · Contact</span>
+                <h2 class="grad-text" data-i18n="contact_title">Travaillons ensemble</h2>
+                <p class="contact-sub" data-i18n="contact_subtitle">DEDE-WANOU Mahunakpon Daniel — ADMINISTATEUR SYSTEME ET RESEAU.</p>
+                <div class="contact-links">
+                    <!-- VOS LIENS DE CONTACT -->
                 </div>
             </div>
         </section>
-
-        <!-- VEILLE TECHNOLOGIQUE -->
-        <section id="veille" class="space-y-8">
-            <div class="border-b border-cyber-border pb-4">
-                <h2 class="text-2xl sm:text-3xl font-mono font-bold text-white">
-                    VEILLE_<span class="text-cyber-neon">TECH</span>
-                </h2>
-                <p class="font-mono text-xs text-gray-400 mt-1">[ SUIVI DES TENDANCES ET SÉCURITÉ INFORMATIQUE ]</p>
-            </div>
-
-            <div class="p-8 rounded-2xl bg-cyber-card border border-cyber-border space-y-6">
-                <div class="font-mono text-cyber-neon text-sm uppercase tracking-wider">// Sujet de Veille : Cybersécurité & Sécurité Réseau</div>
-
-                <h3 class="text-xl font-bold text-white">Vulnérabilités, menaces et bonnes pratiques de sécurité des infrastructures</h3>
-
-                <p class="text-sm text-gray-300 leading-relaxed">
-                    J'ai choisi ce sujet car je souhaite me spécialiser en cybersécurité après mon BTS. Je suis l'actualité des vulnérabilités, des alertes de sécurité et des bonnes pratiques (pare-feu, ACL, sauvegardes, gestion des correctifs) afin de sécuriser les systèmes et réseaux que j'administre.
-                </p>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-                    <div class="p-5 rounded-lg bg-cyber-dark border border-cyber-border space-y-2">
-                        <h4 class="font-mono text-xs text-cyber-accent uppercase">Outils & Sources</h4>
-                        <p class="text-xs text-gray-400">CERT-FR, ANSSI (SecNumacadémie), Cisco Networking Academy, blogs spécialisés en cybersécurité, flux RSS.</p>
-                    </div>
-                    <div class="p-5 rounded-lg bg-cyber-dark border border-cyber-border space-y-2">
-                        <h4 class="font-mono text-xs text-cyber-accent uppercase">Méthodologie</h4>
-                        <p class="text-xs text-gray-400">Collecte, tri, analyse, synthèse et restitution des informations techniques recueillies.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
     </main>
 
-    <!-- FOOTER -->
-    <footer class="border-t border-cyber-border mt-24 py-8 text-center text-xs font-mono text-gray-500">
-        <p>© 2026 - DEDE-WANOU Daniel | BTS SIO option SISR</p>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 DEDE-WANOU Mahunakpon Daniel — Portfolio BTS SIO SISR</p>
     </footer>
+
+    <button class="to-top" id="toTop" aria-label="Retour en haut"><i class="fa-solid fa-arrow-up"></i></button>
 
 </body>
 </html>
